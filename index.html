@@ -55,7 +55,14 @@
     border: 5px solid #ffffff55; box-shadow: 0 0 0 3px #0006; }
   #shutter.ready { background: var(--ok); }
   .side { width: 92px; font-size: 13px; padding: 10px 6px; background: #000a; }
-  #autoBtn.on { color: var(--ok); }
+  #autoBtn.on, #lightBtn.on { color: var(--ok); }
+  .stack { display: flex; flex-direction: column; gap: 8px; }
+  /* Front camera has no LED: shrink the preview and let a white screen light the face. */
+  #cam.screenlight { background: #fff; }
+  #cam.screenlight #video, #cam.screenlight #overlay { top: 17%; left: 10%; width: 80%; height: 58%; border-radius: 18px; }
+  #cam.screenlight #topbar, #cam.screenlight #bottombar { background: none; }
+  #cam.screenlight #hint { color: #111; text-shadow: none; }
+  #cam.screenlight #shutter { border-color: #0005; }
 
   /* processing + result */
   #busy { place-items: center; text-align: center; }
@@ -124,7 +131,10 @@
   </div>
   <div id="countdown"></div>
   <div id="bottombar">
-    <button id="flipBtn" class="side">Flip camera</button>
+    <div class="stack">
+      <button id="flipBtn" class="side">Flip camera</button>
+      <button id="lightBtn" class="side">Light: OFF</button>
+    </div>
     <button id="shutter" aria-label="Take photo"></button>
     <button id="autoBtn" class="side on">Auto: ON</button>
   </div>
@@ -271,6 +281,21 @@ async function startCamera() {
   await video.play();
   const mirror = facing === "user";
   video.classList.toggle("mirror", mirror); overlay.classList.toggle("mirror", mirror);
+  await setLight(lightOn);                                         // a new track starts with the torch off
+}
+
+// Light: the back camera's LED torch when the track supports it, otherwise a white screen.
+let lightOn = false;
+async function setLight(on) {
+  lightOn = on;
+  const track = stream?.getVideoTracks()[0];
+  let torch = false;
+  if (track?.getCapabilities?.().torch) {
+    try { await track.applyConstraints({ advanced: [{ torch: on }] }); torch = true; } catch (e) { console.warn("torch failed", e); }
+  }
+  $("cam").classList.toggle("screenlight", on && !torch);
+  $("lightBtn").textContent = "Light: " + (on ? "ON" : "OFF");
+  $("lightBtn").classList.toggle("on", on);
 }
 function stopCamera() { stream?.getTracks().forEach(t => t.stop()); stream = null; }
 
@@ -334,7 +359,7 @@ function evaluate(r) {
     add("Light background", bg.mean > 95, "Use a lighter wall or more light");
     const hi = Math.max(scene.cheekL, scene.cheekR), lo = Math.min(scene.cheekL, scene.cheekR);
     add("Even lighting", hi > 0 && (hi - lo) / hi < 0.2, "Shadow on one side of your face; face the light");
-    add("Exposure", lo > 70 && hi < 245, lo <= 70 ? "Too dark; add light in front of you" : "Too bright; move out of direct light");
+    add("Exposure", lo > 70 && hi < 245, lo <= 70 ? (lightOn ? "Too dark; add light in front of you" : "Too dark; tap Light or add light in front of you") : "Too bright; move out of direct light");
   } else {
     add("Background", false, "Checking background…");
   }
@@ -655,6 +680,7 @@ $("flipBtn").onclick = async () => {
   facing = facing === "user" ? "environment" : "user";
   live = false; cancelCountdown(); await openCamera();
 };
+$("lightBtn").onclick = () => setLight(!lightOn);
 $("autoBtn").onclick = () => {
   autoOn = !autoOn; $("autoBtn").textContent = "Auto: " + (autoOn ? "ON" : "OFF");
   $("autoBtn").classList.toggle("on", autoOn); if (!autoOn) cancelCountdown();
