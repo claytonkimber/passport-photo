@@ -57,12 +57,11 @@ Found a problem? [File a bug](https://github.com/claytonkimber/passport-photo/is
 
 This app is free, has no ads, and never uploads your photo. If it saved you a trip to a photo shop, you can support it:
 
-- [Support me on Ko-fi](https://ko-fi.com/wiseaddon)
-- [Donate with PayPal or card](https://www.paypal.com/donate/?hosted_button_id=WKTVYE2X9UX4G), or scan with the PayPal app:
+[Donate with PayPal or card](https://www.paypal.com/donate/?hosted_button_id=WKTVYE2X9UX4G), or scan with the PayPal app:
 
 <img src="paypal-qr.png" alt="PayPal QR code" width="200">
 
-The same links are in the app's **Support me** tab, next to your finished photo.
+The same PayPal link and QR code are in the app's **Support me** tab, next to your finished photo.
 
 ## License
 
@@ -76,4 +75,4 @@ You are responsible for checking that your photo meets your passport office's cu
 
 To the fullest extent permitted by law, the author gives no warranties of any kind, express or implied, including any warranty of merchantability, fitness for a particular purpose, accuracy, non-infringement, or freedom from defects, and is not liable for any loss, cost, delay, rejected or refused application, or other damage or harm arising from using, or being unable to use, this app. Where the law does not allow some of these exclusions, they apply to the maximum extent it allows.
 
-Your photos are processed on your device and are not uploaded by this app. Links to Ko-fi, PayPal and GitHub go to those services, which have their own terms.
+Your photos are processed on your device and are not uploaded by this app. Links to PayPal and GitHub go to those services, which have their own terms.
