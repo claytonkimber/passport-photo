@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b0f14">
-<title>US Passport Photo</title>
+<title>Passport Photo</title>
 <style>
   :root {
     --bg: #0b0f14; --panel: #151b23; --text: #eef2f6; --muted: #9aa7b4;
@@ -19,6 +19,7 @@
     background: var(--panel); color: var(--text); }
   button.primary { background: var(--accent); color: #fff; font-weight: 600; }
   button:disabled { opacity: .45; }
+  a { color: var(--accent); }
 
   /* start */
   #start { overflow-y: auto; padding: 24px 16px calc(24px + env(safe-area-inset-bottom)); }
@@ -29,6 +30,14 @@
   .card h2 { font-size: 15px; margin: 0 0 8px; }
   .card ul { margin: 0; padding-left: 20px; color: var(--muted); }
   .card li { margin: 4px 0; }
+  select { width: 100%; font: inherit; color: var(--text); background: #0b0f14; border: 1px solid #ffffff2a;
+    border-radius: 10px; padding: 12px; }
+  .row { display: flex; gap: 8px; align-items: center; margin-top: 10px; }
+  .row label { color: var(--muted); font-size: 14px; white-space: nowrap; }
+  #specSummary { margin-top: 10px; font-size: 14px; color: var(--muted); }
+  #specSummary b { color: var(--text); font-weight: 600; }
+  #specSummary p { margin: 6px 0; }
+  .warnbox { color: var(--warn); }
   #startBtn { width: 100%; margin-top: 8px; font-size: 18px; }
   #loadStatus { color: var(--muted); font-size: 14px; text-align: center; margin-top: 10px; min-height: 20px; }
   .seg { display: flex; gap: 8px; }
@@ -72,7 +81,7 @@
   @keyframes spin { to { transform: rotate(360deg); } }
   #result { overflow-y: auto; padding: calc(16px + env(safe-area-inset-top)) 16px calc(24px + env(safe-area-inset-bottom)); }
   #result .wrap { max-width: 560px; margin: 0 auto; }
-  .photoBox { position: relative; width: 100%; max-width: 420px; margin: 0 auto; aspect-ratio: 1; background: #fff;
+  .photoBox { position: relative; width: 100%; max-width: 380px; margin: 0 auto; aspect-ratio: 1; background: #fff;
     border-radius: 6px; overflow: hidden; }
   .photoBox img, .photoBox canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
   #verdict { text-align: center; font-weight: 700; font-size: 18px; margin: 14px 0 4px; }
@@ -92,17 +101,27 @@
 <!-- START -->
 <section id="start" class="screen active">
   <div class="wrap">
-    <h1>US Passport Photo</h1>
-    <p class="sub">Live guides and checks for the U.S. State Department photo rules. Everything runs on your phone; no photo is uploaded.</p>
+    <h1>Passport Photo</h1>
+    <p class="sub">Live guides and checks for your country's passport photo rules. Everything runs on your phone; no photo is uploaded.</p>
+
+    <div class="card">
+      <h2>Passport country</h2>
+      <select id="country" aria-label="Passport country"></select>
+      <div class="row" id="bgRow">
+        <label for="bgSel">Background</label>
+        <select id="bgSel"></select>
+      </div>
+      <div id="specSummary"></div>
+    </div>
 
     <div class="card">
       <h2>Before you start</h2>
       <ul>
-        <li>Stand about 2 ft in front of a plain, light-colored wall.</li>
+        <li>Stand about 60 cm (2 ft) in front of a plain, light-colored wall.</li>
         <li>Face a window or soft light so there are no shadows on your face.</li>
-        <li>Remove glasses, hats, headphones, and anything covering your hair or face. (The app can't check these, so check them yourself.)</li>
+        <li id="glassesTip">Remove glasses, hats, headphones, and anything covering your hair or face. (The app can't check these, so check them yourself.)</li>
         <li>Keep a neutral face with your mouth closed and both eyes open, looking straight at the camera.</li>
-        <li>Best results: have someone else take it with the back camera from about 4 ft away. Arm's-length selfies can distort your face.</li>
+        <li>Best results: have someone else take it with the back camera from about 1.2 m (4 ft) away. Arm's-length selfies can distort your face.</li>
       </ul>
     </div>
 
@@ -117,7 +136,7 @@
     <button id="startBtn" class="primary">Open camera</button>
     <div id="loadStatus">Loading face detection…</div>
 
-    <p class="fine">Photo output: 1200×1200 px JPEG (2×2 in), head 1–1⅜ in (50–69% of height), eyes 1⅛–1⅜ in from the bottom (56–69%), white background. This tool helps you follow the rules but cannot promise the passport office will accept the photo.</p>
+    <p class="fine">This tool helps you follow the published rules but cannot promise a passport office will accept the photo. Rules change, so check your passport office's website before you apply.</p>
   </div>
 </section>
 
@@ -150,7 +169,7 @@
   <div class="wrap">
     <div class="photoBox">
       <img id="resultImg" alt="Passport photo">
-      <canvas id="resultGuides" width="1200" height="1200"></canvas>
+      <canvas id="resultGuides"></canvas>
     </div>
     <label class="tog"><input type="checkbox" id="guideTog" checked> Show measurement lines (not saved)</label>
     <div id="verdict"></div>
@@ -158,22 +177,23 @@
     <div class="btns">
       <button id="saveBtn" class="primary">Save photo to phone</button>
       <button id="shareBtn">Share…</button>
-      <button id="sheetBtn">Save 4×6 print sheet (two photos)</button>
+      <button id="sheetBtn">Save 4×6 in (10×15 cm) print sheet</button>
       <button id="retakeBtn">Retake</button>
     </div>
-    <p class="fine">Use the single photo for online renewal. Print the 4×6 sheet at 100% (no cropping or "fit") at any photo kiosk, then cut out a 2×2 in photo.</p>
+    <p class="fine">Use the single photo for online applications. Print the 4×6 in (10×15 cm) sheet at 100% (no cropping or "fit") at any photo kiosk, then cut along the grey lines.</p>
   </div>
 </section>
 
 <script type="module">
 import { FilesetResolver, FaceLandmarker, ImageSegmenter }
   from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs";
+import { ICAO, SPECS, COUNTRIES } from "./specs.js";
 
-// U.S. State Dept. photo spec, as fractions of the square photo's height.
-const SPEC = {
-  out: 1200,
-  headMin: 0.50, headMax: 0.69, headTarget: 0.60,        // chin to top of hair: 1"–1⅜" of 2"
-  eyeMin: 0.56, eyeMax: 0.69, eyeTarget: 0.625,          // eye line from bottom: 1⅛"–1⅜"
+// Background colors the output can be lifted to.
+const BG_RGB = {
+  "white": [252, 252, 252], "off-white": [246, 244, 238], "cream": [240, 234, 214],
+  "light grey": [222, 222, 222], "grey": [200, 200, 200],
+  "light blue": [205, 225, 245], "blue": [70, 130, 200], "red": [200, 45, 45],
 };
 const LM = { chin: 152, forehead: 10, eyeOutR: 33, eyeOutL: 263, irisR: 468, irisL: 473, cheekR: 205, cheekL: 425 };
 
@@ -181,9 +201,102 @@ const $ = id => document.getElementById(id);
 const video = $("video"), overlay = $("overlay"), octx = overlay.getContext("2d");
 let faceLM = null, faceStill = null, segmenter = null, stream = null, facing = "user";
 let live = false, frameNo = 0, scene = null, passSince = 0, countdownT = null, autoOn = true, lastChecks = [];
-let resultBlob = null;
+let resultBlob = null, SPEC = null;
 
 function show(id) { document.querySelectorAll(".screen").forEach(s => s.classList.toggle("active", s.id === id)); }
+const store = { get: k => { try { return localStorage.getItem(k); } catch { return null; } },
+                set: (k, v) => { try { localStorage.setItem(k, v); } catch {} } };
+
+// ---------- country spec ----------
+// Turns a country's rules (mm) into fractions of the photo height that the camera, crop and checks use.
+function deriveSpec(code, bgChoice) {
+  const raw = SPECS[code] || null, s = { ...ICAO };
+  if (raw) for (const k in raw) if (raw[k] != null) s[k] = raw[k];
+  const H = s.h_mm, W = s.w_mm;
+  const headMinMm = Math.min(s.head_min_mm, 0.8 * H), headMaxMm = Math.min(s.head_max_mm, 0.85 * H);
+  const allowedBg = (s.bg || ["white"]).filter(b => BG_RGB[b]);
+  if (!allowedBg.length) allowedBg.push("white");
+  const bgName = allowedBg.includes(bgChoice) ? bgChoice : (allowedBg.includes("white") ? "white" : allowedBg[0]);
+  const sp = {
+    code, name: COUNTRIES.find(c => c[0] === code)?.[1] || code, raw: s, known: !!raw,
+    headAssumed: !raw || raw.head_min_mm == null,
+    w_mm: W, h_mm: H, aspect: W / H,
+    headMinMm, headMaxMm,
+    headMin: headMinMm / H, headMax: headMaxMm / H, headTarget: (headMinMm + headMaxMm) / 2 / H,
+    eyeMin: s.eye_min_mm != null ? s.eye_min_mm / H : null, eyeMax: s.eye_max_mm != null ? s.eye_max_mm / H : null,
+    topMin: s.top_min_mm != null ? s.top_min_mm / H : null, topMax: s.top_max_mm != null ? s.top_max_mm / H : null,
+    allowedBg, bgName, bgRgb: BG_RGB[bgName],
+    headMeasure: s.head_measure || "hair",
+  };
+  sp.headLabel = { hair: "Head height", skull: "Head height without hair", hairline: "Chin to hairline" }[sp.headMeasure];
+  // Where the top of the head sits: from the eye rule if there is one (eyes are ~45% down the head),
+  // else the top-margin rule, else 40% of the spare space above the head.
+  if (sp.eyeMin != null) sp.topTarget = (1 - (sp.eyeMin + sp.eyeMax) / 2) - 0.45 * sp.headTarget;
+  else if (sp.topMin != null) sp.topTarget = (sp.topMin + sp.topMax) / 2;
+  else sp.topTarget = (1 - sp.headTarget) * 0.4;
+  sp.eyeBand = sp.eyeMin != null ? [1 - sp.eyeMax, 1 - sp.eyeMin]
+    : [sp.topTarget + 0.38 * sp.headTarget, sp.topTarget + 0.54 * sp.headTarget];
+  // 600 dpi print resolution, or the official digital minimum if that is larger.
+  sp.outH = Math.max(Math.round(H / 25.4 * 600), s.digital_px?.h || 0, Math.ceil((s.digital_px?.w || 0) * H / W));
+  sp.outW = Math.round(sp.outH * W / H);
+  return sp;
+}
+
+const mm = v => (Math.round(v * 10) / 10).toString();
+const sizeLabel = sp => `${mm(sp.w_mm)}×${mm(sp.h_mm)} mm` +
+  (Math.abs(sp.w_mm - 50.8) < 0.6 && Math.abs(sp.h_mm - 50.8) < 0.6 ? " (2×2 in)" : "");
+
+function renderSpecCard() {
+  const sp = SPEC, s = sp.raw, box = $("specSummary");
+  box.replaceChildren();
+  const p = (html, cls) => { const e = document.createElement("p"); if (cls) e.className = cls; e.append(...html); box.append(e); return e; };
+  const b = t => { const e = document.createElement("b"); e.textContent = t; return e; };
+  p([b(sizeLabel(sp)), ` photo · ${sp.headLabel.toLowerCase()} ${mm(sp.headMinMm)}–${mm(sp.headMaxMm)} mm`,
+     sp.eyeMin != null ? ` · eyes ${mm(s.eye_min_mm)}–${mm(s.eye_max_mm)} mm from bottom` : "",
+     sp.topMin != null ? ` · ${mm(s.top_min_mm)}–${mm(s.top_max_mm)} mm above head` : "",
+     ` · ${sp.allowedBg.join(" or ")} background`]);
+  p([`Saved as ${sp.outW}×${sp.outH} px JPEG` + (s.digital_px ? ` (online minimum ${s.digital_px.w}×${s.digital_px.h} px)` : "") + "."]);
+  if (s.taken_at_office) p(["Usually photographed at the passport office. You may only need your own photo when applying from abroad or by mail."], "warnbox");
+  if (s.notes) p([s.notes]);
+  if (sp.known) {
+    const e = p([s.confidence === "high" ? "Based on the official rules"
+      : `Based on the best sources found, not all official (${s.confidence || "unknown"} confidence)`], s.confidence === "high" ? "" : "warnbox");
+    if (typeof s.source === "string" && s.source.startsWith("https://")) {
+      const a = document.createElement("a"); a.href = s.source; a.target = "_blank"; a.rel = "noopener"; a.textContent = "source";
+      e.append(": ", a);
+    }
+    e.append(". Check it before applying.");
+    if (sp.headAssumed) p(["No official head size found, so the international standard (32–36 mm) is used."]);
+  } else {
+    p(["No country-specific rules on file, so the international ICAO standard is used (35×45 mm, head 32–36 mm), which most countries follow. Confirm with your passport office."], "warnbox");
+  }
+  $("glassesTip").textContent = s.glasses_allowed
+    ? "Remove hats, headphones, and anything covering your face. Glasses may be allowed if there is no glare and your eyes are clear, but removing them is safest."
+    : "Remove glasses, hats, headphones, and anything covering your hair or face. (The app can't check these, so check them yourself.)";
+  // Background picker only when there is a choice.
+  const sel = $("bgSel");
+  sel.replaceChildren(...sp.allowedBg.map(n => new Option(n[0].toUpperCase() + n.slice(1), n, false, n === sp.bgName)));
+  $("bgRow").style.display = sp.allowedBg.length > 1 ? "" : "none";
+}
+
+function setCountry(code, bg) {
+  SPEC = deriveSpec(code, bg);
+  store.set("country", code); store.set("bg", SPEC.bgName);
+  renderSpecCard();
+}
+
+(function initCountryPicker() {
+  const sel = $("country");
+  const sorted = [...COUNTRIES].sort((a, b) => a[1].localeCompare(b[1]));
+  sel.replaceChildren(...sorted.map(([c, n]) => new Option(n + (SPECS[c] ? "" : " (standard size)"), c)));
+  const region = (navigator.languages || [navigator.language || ""]).map(l => l.split("-")[1]?.toUpperCase()).find(r => r && SPECS[r]);
+  const saved = store.get("country");
+  const code = [saved, region, "US"].find(c => c && COUNTRIES.some(x => x[0] === c));
+  sel.value = code;
+  setCountry(code, store.get("bg"));
+  sel.onchange = () => setCountry(sel.value, $("bgSel").value);
+  $("bgSel").onchange = () => setCountry(SPEC.code, $("bgSel").value);
+})();
 
 // ---------- models ----------
 const modelsReady = (async () => {
@@ -246,19 +359,29 @@ function hairTop(seg, lm) {
   return tops[Math.floor(tops.length / 2)] / h;
 }
 
+// Top of the head the way the country measures it (normalized y). Without hair it is estimated from the face:
+// the hairline sits just above landmark 10 and the top of the skull ~28% of the face height above that.
+function measureTop(hairN, lm) {
+  const f = lm[LM.forehead].y, face = lm[LM.chin].y - f;
+  if (SPEC.headMeasure === "hairline") return Math.max(hairN, f - 0.05 * face);
+  if (SPEC.headMeasure === "skull") return Math.max(hairN, f - 0.28 * face);
+  return hairN;
+}
+
 function bgStats(img, seg) {
   const { bg, w: mw, h: mh } = seg, W = img.width, H = img.height, d = img.data;
   const step = Math.max(1, Math.floor(Math.sqrt(W * H / 40000)));
-  let n = 0, total = 0, s = 0, s2 = 0;
+  let n = 0, total = 0, s = 0, s2 = 0, sr = 0, sg = 0, sb = 0;
   for (let y = 0; y < H; y += step) for (let x = 0; x < W; x += step) {
     total++;
     if (bg[Math.floor(y * mh / H) * mw + Math.floor(x * mw / W)] > 0.85) {
       const i = (y * W + x) * 4, L = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
-      n++; s += L; s2 += L * L;
+      n++; s += L; s2 += L * L; sr += d[i]; sg += d[i + 1]; sb += d[i + 2];
     }
   }
   const mean = n ? s / n : 0;
-  return { frac: n / total, mean, std: n ? Math.sqrt(Math.max(0, s2 / n - mean * mean)) : 0 };
+  return { frac: n / total, mean, std: n ? Math.sqrt(Math.max(0, s2 / n - mean * mean)) : 0,
+           rgb: n ? [sr / n, sg / n, sb / n] : [0, 0, 0] };
 }
 
 function patchLum(img, nx, ny, r) {
@@ -299,12 +422,12 @@ async function setLight(on) {
 }
 function stopCamera() { stream?.getTracks().forEach(t => t.stop()); stream = null; }
 
-// Guide square in video pixel coords, inside the part of the video that object-fit:cover shows.
-function guideSquare() {
+// Guide box (the photo's shape) in video pixel coords, inside the part of the video that object-fit:cover shows.
+function guideBox() {
   const vw = video.videoWidth, vh = video.videoHeight, cw = video.clientWidth, ch = video.clientHeight;
   const sc = Math.max(cw / vw, ch / vh), visW = cw / sc, visH = ch / sc;
-  const side = Math.min(visW * 0.9, visH * 0.62);
-  return { x: (vw - side) / 2, y: (vh - side) / 2 - visH * 0.03, side };
+  const h = Math.min(visH * 0.62, visW * 0.9 / SPEC.aspect), w = h * SPEC.aspect;
+  return { x: (vw - w) / 2, y: (vh - h) / 2 - visH * 0.03, w, h };
 }
 
 const smallCanvas = document.createElement("canvas"), sctx = smallCanvas.getContext("2d", { willReadFrequently: true });
@@ -330,16 +453,17 @@ function evaluate(r) {
     add("Face", false, n ? "Only one person in the photo" : "Point the camera at your face");
     return checks;
   }
-  const lm = r.faceLandmarks[0], vw = video.videoWidth, vh = video.videoHeight, sq = guideSquare();
+  const lm = r.faceLandmarks[0], vw = video.videoWidth, vh = video.videoHeight, box = guideBox();
   const fresh = scene && performance.now() - scene.t < 1500;
   const chinY = lm[LM.chin].y * vh;
   const topN = fresh && scene.hairTop != null ? scene.hairTop : lm[LM.forehead].y - 0.3 * (lm[LM.chin].y - lm[LM.forehead].y);
-  const head = (chinY - topN * vh) / sq.side;
-  add("Size", head >= 0.47 && head <= 0.74, head < 0.47 ? "Move closer" : "Move back a little");
+  // The crop rescales afterwards, so live sizing only needs to be roughly right.
+  const head = (chinY - measureTop(topN, lm) * vh) / box.h, lo = SPEC.headMin - 0.04, hi = SPEC.headMax + 0.05;
+  add("Size", head >= lo && head <= hi, head < lo ? "Move closer" : "Move back a little");
 
   const eyeX = (lm[LM.irisR].x + lm[LM.irisL].x) / 2 * vw, eyeY = (lm[LM.irisR].y + lm[LM.irisL].y) / 2 * vh;
-  const dx = (eyeX - (sq.x + sq.side / 2)) / sq.side, ey = (eyeY - sq.y) / sq.side;
-  add("Centered", Math.abs(dx) < 0.08 && ey > 0.28 && ey < 0.47, "Line your eyes up with the green band");
+  const dx = (eyeX - (box.x + box.w / 2)) / box.w, ey = (eyeY - box.y) / box.h;
+  add("Centered", Math.abs(dx) < 0.1 && ey > SPEC.eyeBand[0] - 0.04 && ey < SPEC.eyeBand[1] + 0.04, "Line your eyes up with the green band");
   add("Top of head", topN > 0.01, "Your whole head must be in the picture");
 
   const p = pose(r, lm, vw, vh);
@@ -369,24 +493,25 @@ function evaluate(r) {
 function drawOverlay(r, allOk) {
   const vw = video.videoWidth, vh = video.videoHeight;
   if (overlay.width !== vw || overlay.height !== vh) { overlay.width = vw; overlay.height = vh; }
-  const { x, y, side } = guideSquare(), c = octx, col = allOk ? "#2ecc71" : "#ffffff";
+  const { x, y, w, h } = guideBox(), c = octx, col = allOk ? "#2ecc71" : "#ffffff";
   c.clearRect(0, 0, vw, vh);
-  c.fillStyle = "rgba(0,0,0,0.5)"; c.fillRect(0, 0, vw, vh); c.clearRect(x, y, side, side);
-  c.lineWidth = Math.max(2, side / 200); c.strokeStyle = col; c.strokeRect(x, y, side, side);
-  // eye band (56–69% from bottom)
-  c.fillStyle = "rgba(46,204,113,0.18)";
-  c.fillRect(x, y + side * (1 - SPEC.eyeMax), side, side * (SPEC.eyeMax - SPEC.eyeMin));
-  c.setLineDash([side / 40, side / 60]); c.strokeStyle = "rgba(46,204,113,0.9)";
-  for (const f of [1 - SPEC.eyeMax, 1 - SPEC.eyeMin]) { c.beginPath(); c.moveTo(x, y + side * f); c.lineTo(x + side, y + side * f); c.stroke(); }
+  c.fillStyle = "rgba(0,0,0,0.5)"; c.fillRect(0, 0, vw, vh); c.clearRect(x, y, w, h);
+  c.lineWidth = Math.max(2, h / 200); c.strokeStyle = col; c.strokeRect(x, y, w, h);
+  // eye band
+  const [e0, e1] = SPEC.eyeBand;
+  c.fillStyle = "rgba(46,204,113,0.18)"; c.fillRect(x, y + h * e0, w, h * (e1 - e0));
+  c.setLineDash([h / 40, h / 60]); c.strokeStyle = "rgba(46,204,113,0.9)";
+  for (const f of [e0, e1]) { c.beginPath(); c.moveTo(x, y + h * f); c.lineTo(x + w, y + h * f); c.stroke(); }
   c.setLineDash([]);
-  // head oval: top of hair ~10% down, chin ~70% down
-  c.strokeStyle = col; c.lineWidth = Math.max(3, side / 120);
-  c.beginPath(); c.ellipse(x + side / 2, y + side * 0.405, side * 0.22, side * 0.30, 0, 0, Math.PI * 2); c.stroke();
+  // head oval from top of hair to chin at the target size
+  const ry = h * SPEC.headTarget / 2;
+  c.strokeStyle = col; c.lineWidth = Math.max(3, h / 120);
+  c.beginPath(); c.ellipse(x + w / 2, y + h * SPEC.topTarget + ry, ry * 0.73, ry, 0, 0, Math.PI * 2); c.stroke();
   // iris dots
   const lm = r?.faceLandmarks?.[0];
   if (lm) {
     c.fillStyle = "#3d8bfd";
-    for (const i of [LM.irisR, LM.irisL]) { c.beginPath(); c.arc(lm[i].x * vw, lm[i].y * vh, side / 90, 0, Math.PI * 2); c.fill(); }
+    for (const i of [LM.irisR, LM.irisL]) { c.beginPath(); c.arc(lm[i].x * vw, lm[i].y * vh, h / 90, 0, Math.PI * 2); c.fill(); }
   }
 }
 
@@ -436,7 +561,7 @@ async function capture() {
   src.width = video.videoWidth; src.height = video.videoHeight;
   src.getContext("2d").drawImage(video, 0, 0);
   stopCamera();
-  show("busy"); $("busyText").textContent = "Cropping and whitening background…";
+  show("busy"); $("busyText").textContent = "Cropping and cleaning up the background…";
   await new Promise(r => setTimeout(r, 50));
   try {
     const out = processPhoto(src);
@@ -451,23 +576,26 @@ async function capture() {
 }
 
 function processPhoto(src) {
-  const W = src.width, H = src.height, O = SPEC.out;
+  const W = src.width, H = src.height, OW = SPEC.outW, OH = SPEC.outH;
   const r = faceStill.detect(src);
   if (r.faceLandmarks.length !== 1) throw new Error("Couldn't find exactly one face in the photo.");
   const lm = r.faceLandmarks[0], seg = segmentBackground(src);
-  const top = hairTop(seg, lm) * H, chin = lm[LM.chin].y * H;
+  const hairN = hairTop(seg, lm), hair = hairN * H, top = measureTop(hairN, lm) * H, chin = lm[LM.chin].y * H;
   const eyeX = (lm[LM.irisR].x + lm[LM.irisL].x) / 2 * W, eyeY = (lm[LM.irisR].y + lm[LM.irisL].y) / 2 * H;
 
-  const side = (chin - top) / SPEC.headTarget;                    // scale so head = 60% of photo
-  let cropTop = eyeY - (1 - SPEC.eyeTarget) * side;               // eyes 62.5% from bottom
-  cropTop = Math.min(cropTop, top - 0.04 * side);                 // keep hair off the top edge
-  cropTop = Math.max(cropTop, chin - 0.96 * side);
-  const cropLeft = eyeX - side / 2;
+  const cropH = (chin - top) / SPEC.headTarget, cropW = cropH * SPEC.aspect;   // head at the middle of the allowed range
+  let cropTop = SPEC.eyeMin != null
+    ? eyeY - (1 - (SPEC.eyeMin + SPEC.eyeMax) / 2) * cropH                     // eye line in the middle of its range
+    : top - SPEC.topTarget * cropH;
+  if (SPEC.topMin != null) cropTop = Math.max(Math.min(cropTop, hair - SPEC.topMin * cropH), hair - SPEC.topMax * cropH);
+  cropTop = Math.min(cropTop, hair - 0.03 * cropH);                             // keep hair off the top edge
+  cropTop = Math.max(cropTop, chin - 0.97 * cropH);
+  const cropLeft = eyeX - cropW / 2;
 
-  const out = document.createElement("canvas"); out.width = out.height = O;
+  const out = document.createElement("canvas"); out.width = OW; out.height = OH;
   const c = out.getContext("2d");
-  c.fillStyle = "#fff"; c.fillRect(0, 0, O, O);
-  c.drawImage(src, cropLeft, cropTop, side, side, 0, 0, O, O);
+  c.fillStyle = `rgb(${SPEC.bgRgb})`; c.fillRect(0, 0, OW, OH);
+  c.drawImage(src, cropLeft, cropTop, cropW, cropH, 0, 0, OW, OH);
 
   // Background confidence scaled up to the output size; anything outside the camera frame counts as background.
   const mc = document.createElement("canvas"); mc.width = seg.w; mc.height = seg.h;
@@ -476,15 +604,15 @@ function processPhoto(src) {
     md.data[i * 4] = md.data[i * 4 + 1] = md.data[i * 4 + 2] = Math.round(seg.bg[i] * 255); md.data[i * 4 + 3] = 255;
   }
   mctx.putImageData(md, 0, 0);
-  const big = document.createElement("canvas"); big.width = big.height = O;
+  const big = document.createElement("canvas"); big.width = OW; big.height = OH;
   const bctx = big.getContext("2d", { willReadFrequently: true });
-  bctx.fillStyle = "#fff"; bctx.fillRect(0, 0, O, O); bctx.imageSmoothingQuality = "high";
+  bctx.fillStyle = "#fff"; bctx.fillRect(0, 0, OW, OH); bctx.imageSmoothingQuality = "high";
   const sx = seg.w / W, sy = seg.h / H;
-  bctx.drawImage(mc, cropLeft * sx, cropTop * sy, side * sx, side * sy, 0, 0, O, O);
-  const bd = bctx.getImageData(0, 0, O, O).data, A = new Float32Array(O * O);
+  bctx.drawImage(mc, cropLeft * sx, cropTop * sy, cropW * sx, cropH * sy, 0, 0, OW, OH);
+  const bd = bctx.getImageData(0, 0, OW, OH).data, A = new Float32Array(OW * OH);
   for (let i = 0; i < A.length; i++) A[i] = bd[i * 4] / 255;
 
-  whitenBackground(c, A, O);
+  liftBackground(c, A, OW, OH, SPEC.bgRgb);
   return out;
 }
 
@@ -520,16 +648,16 @@ function guidedFilter(I, p, w, h, r, eps) {
 
 const smooth = (e0, e1, x) => { const t = Math.min(1, Math.max(0, (x - e0) / (e1 - e0))); return t * t * (3 - 2 * t); };
 
-// Booth-style background: brighten the wall to white by dividing out its own (smoothly varying) color,
-// instead of painting white over a mask. Edge pixels are only lifted as far as they look like wall,
+// Booth-style background: shift the wall to the target color by dividing out its own (smoothly varying) color,
+// instead of painting over a mask. Edge pixels are only shifted as far as they look like wall,
 // so skin and hair at the border get a slight backlight rather than being erased.
-function whitenBackground(ctx, A, N) {
-  const n = N * N, img = ctx.getImageData(0, 0, N, N), d = img.data, WHITE = 252;
+function liftBackground(ctx, A, Wd, Hd, T) {
+  const n = Wd * Hd, img = ctx.getImageData(0, 0, Wd, Hd), d = img.data;
   const I = new Float32Array(n);
   for (let i = 0; i < n; i++) I[i] = (0.299 * d[i * 4] + 0.587 * d[i * 4 + 1] + 0.114 * d[i * 4 + 2]) / 255;
   const p = new Float32Array(n);
   for (let i = 0; i < n; i++) p[i] = smooth(0.35, 0.95, A[i]);          // lean toward keeping the person
-  const alpha = guidedFilter(I, p, N, N, Math.round(N / 120), 1e-3);
+  const alpha = guidedFilter(I, p, Wd, Hd, Math.round(Hd / 120), 1e-3);
 
   // Wall color field: average of confidently-background pixels over a wide window.
   const sure = new Float32Array(n), cr = new Float32Array(n), cg = new Float32Array(n), cb = new Float32Array(n);
@@ -538,7 +666,7 @@ function whitenBackground(ctx, A, N) {
     sure[i] = 1; cr[i] = d[i * 4]; cg[i] = d[i * 4 + 1]; cb[i] = d[i * 4 + 2];
     gs++; gr += cr[i]; gg += cg[i]; gb += cb[i];
   }
-  const R = Math.round(N / 16), blur2 = a => boxBlur(boxBlur(a, N, N, R), N, N, R);
+  const R = Math.round(Hd / 16), blur2 = a => boxBlur(boxBlur(a, Wd, Hd, R), Wd, Hd, R);
   const ws = blur2(sure), wr = blur2(cr), wg = blur2(cg), wb = blur2(cb);
   const fr = gs ? gr / gs : 230, fg = gs ? gg / gs : 230, fb = gs ? gb / gs : 230;
 
@@ -546,9 +674,9 @@ function whitenBackground(ctx, A, N) {
   // where pixels are decided by color: closer to the wall than to the subject means wall.
   const pers = new Float32Array(n), pr = new Float32Array(n), pg = new Float32Array(n), pb = new Float32Array(n);
   for (let i = 0; i < n; i++) if (alpha[i] < 0.1) { pers[i] = 1; pr[i] = d[i * 4]; pg[i] = d[i * 4 + 1]; pb[i] = d[i * 4 + 2]; }
-  const Rp = Math.round(N / 50), blurP = a => boxBlur(boxBlur(a, N, N, Rp), N, N, Rp);
+  const Rp = Math.round(Hd / 50), blurP = a => boxBlur(boxBlur(a, Wd, Hd, Rp), Wd, Hd, Rp);
   const ps = blurP(pers), psr = blurP(pr), psg = blurP(pg), psb = blurP(pb);
-  const near = boxBlur(alpha, N, N, Math.round(N / 60));
+  const near = boxBlur(alpha, Wd, Hd, Math.round(Hd / 60));
 
   for (let i = 0; i < n; i++) {
     const a = alpha[i], band = smooth(0.02, 0.2, near[i]);
@@ -566,40 +694,44 @@ function whitenBackground(ctx, A, N) {
     // Sure background is lifted fully; in the edge band, the color decides.
     const w = Math.max(a * (wallness + (1 - wallness) * smooth(0.85, 0.98, a)), wallness * band);
     const flat = smooth(0.8, 0.97, a);                                   // a booth backdrop is flat: no wall texture
-    const lr = Math.min(255, r * WHITE / Wr), lg = Math.min(255, g * WHITE / Wg), lb = Math.min(255, b * WHITE / Wb);
-    d[i * 4]     = r + w * ((lr + flat * (WHITE - lr)) - r);
-    d[i * 4 + 1] = g + w * ((lg + flat * (WHITE - lg)) - g);
-    d[i * 4 + 2] = b + w * ((lb + flat * (WHITE - lb)) - b);
+    const lr = Math.min(255, r * T[0] / Wr), lg = Math.min(255, g * T[1] / Wg), lb = Math.min(255, b * T[2] / Wb);
+    d[i * 4]     = r + w * ((lr + flat * (T[0] - lr)) - r);
+    d[i * 4 + 1] = g + w * ((lg + flat * (T[1] - lg)) - g);
+    d[i * 4 + 2] = b + w * ((lb + flat * (T[2] - lb)) - b);
   }
   ctx.putImageData(img, 0, 0);
 }
 
 function verify(out) {
-  const O = out.width, list = [], add = (label, ok, val) => list.push({ label, ok, val });
+  const OW = out.width, OH = out.height, Hmm = SPEC.h_mm, list = [], add = (label, ok, val) => list.push({ label, ok, val });
   const r = faceStill.detect(out);
   if (r.faceLandmarks.length !== 1) { add("Face found in final photo", false, r.faceLandmarks.length ? "more than one" : "not found"); return list; }
   const lm = r.faceLandmarks[0], seg = segmentBackground(out);
-  const top = hairTop(seg, lm), chin = lm[LM.chin].y;
+  const hair = hairTop(seg, lm), top = measureTop(hair, lm), chin = lm[LM.chin].y;
   const eyeY = (lm[LM.irisR].y + lm[LM.irisL].y) / 2, eyeX = (lm[LM.irisR].x + lm[LM.irisL].x) / 2;
-  const head = chin - top, eyeB = 1 - eyeY, inch = f => (f * 2).toFixed(2) + " in";
-  const pct = f => Math.round(f * 100) + "%";
+  const head = chin - top, eyeB = 1 - eyeY, tol = 0.005;
+  const len = f => `${mm(f * Hmm)} mm · ${Math.round(f * 100)}%`;
 
-  add("Head height (1–1⅜ in)", head >= SPEC.headMin && head <= SPEC.headMax, `${inch(head)} · ${pct(head)}`);
-  add("Eye line from bottom (1⅛–1⅜ in)", eyeB >= SPEC.eyeMin && eyeB <= SPEC.eyeMax, `${inch(eyeB)} · ${pct(eyeB)}`);
+  add(`${SPEC.headLabel} (${mm(SPEC.headMinMm)}–${mm(SPEC.headMaxMm)} mm)`, head >= SPEC.headMin - tol && head <= SPEC.headMax + tol, len(head));
+  if (SPEC.eyeMin != null)
+    add(`Eye line from bottom (${mm(SPEC.raw.eye_min_mm)}–${mm(SPEC.raw.eye_max_mm)} mm)`, eyeB >= SPEC.eyeMin - tol && eyeB <= SPEC.eyeMax + tol, len(eyeB));
+  if (SPEC.topMin != null)
+    add(`Space above head (${mm(SPEC.raw.top_min_mm)}–${mm(SPEC.raw.top_max_mm)} mm)`, hair >= SPEC.topMin - tol && hair <= SPEC.topMax + tol, len(hair));
   add("Face centered", Math.abs(eyeX - 0.5) < 0.04, `${((eyeX - 0.5) * 100).toFixed(1)}% off`);
-  add("Whole head in frame", top > 0.01, top > 0.01 ? "yes" : "cut off");
-  const p = pose(r, lm, O, O);
+  add("Whole head in frame", hair > 0.01, hair > 0.01 ? "yes" : "cut off");
+  const p = pose(r, lm, OW, OH);
   add("Head level", Math.abs(p.roll) < 5, `${p.roll.toFixed(1)}° tilt`);
   add("Facing camera", Math.abs(p.yaw) < 8 && Math.abs(p.pitch) < 12, `${p.yaw.toFixed(0)}° / ${p.pitch.toFixed(0)}°`);
   const b = blend(r);
   const smile = Math.max(b.mouthSmileLeft || 0, b.mouthSmileRight || 0);
-  add("Neutral expression", smile < 0.3 && (b.jawOpen || 0) < 0.15, `smile ${pct(smile)}`);
+  add("Neutral expression", smile < 0.3 && (b.jawOpen || 0) < 0.15, `smile ${Math.round(smile * 100)}%`);
   const blink = Math.max(b.eyeBlinkLeft || 0, b.eyeBlinkRight || 0);
-  add("Both eyes open", blink < 0.4, `closed ${pct(blink)}`);
-  const img = out.getContext("2d").getImageData(0, 0, O, O), bg = bgStats(img, seg);
-  add("White background", bg.mean > 240 && bg.std < 10, `brightness ${Math.round(bg.mean)}/255`);
-  add("Size 1200×1200 JPEG", true, "2×2 in at 600 dpi");
-  verify.geom = { top, chin, eyeY, eyeX };
+  add("Both eyes open", blink < 0.4, `closed ${Math.round(blink * 100)}%`);
+  const img = out.getContext("2d").getImageData(0, 0, OW, OH), bg = bgStats(img, seg);
+  const off = Math.hypot(bg.rgb[0] - SPEC.bgRgb[0], bg.rgb[1] - SPEC.bgRgb[1], bg.rgb[2] - SPEC.bgRgb[2]);
+  add(`Plain ${SPEC.bgName} background`, off < 14 && bg.std < 10, off < 14 ? "even" : "uneven");
+  add(`${OW}×${OH} px JPEG`, true, sizeLabel(SPEC));
+  verify.geom = { top, hair, chin, eyeY, eyeX };
   return list;
 }
 
@@ -608,32 +740,39 @@ async function showResult(out, checks) {
   const img = $("resultImg");
   if (img.src) URL.revokeObjectURL(img.src);
   img.src = URL.createObjectURL(resultBlob);
-  img.dataset.w = out.width;
   window._outCanvas = out;
+  document.querySelector(".photoBox").style.aspectRatio = `${out.width} / ${out.height}`;
+  const g = $("resultGuides"); g.width = out.width; g.height = out.height;
   const allOk = checks.every(c => c.ok);
-  $("verdict").textContent = allOk ? "Passes all checks" : "Some checks failed: consider retaking";
+  $("verdict").textContent = allOk ? `Passes all checks for ${SPEC.name}` : "Some checks failed: consider retaking";
   $("verdict").className = allOk ? "ok" : "bad";
   $("resultChecks").innerHTML = checks.map(c => `<li class="${c.ok ? "ok" : "bad"}"><span>${c.label}</span><span class="v">${c.val}</span></li>`).join("");
   $("shareBtn").style.display = navigator.canShare?.({ files: [new File([resultBlob], "p.jpg", { type: "image/jpeg" })] }) ? "" : "none";
+  $("sheetBtn").textContent = `Save 4×6 in (10×15 cm) print sheet (${sheetLayout().count} photos)`;
   drawResultGuides();
   show("result");
 }
 
 function drawResultGuides() {
-  const cv = $("resultGuides"), c = cv.getContext("2d"), O = cv.width, g = verify.geom;
-  c.clearRect(0, 0, O, O);
+  const cv = $("resultGuides"), c = cv.getContext("2d"), W = cv.width, H = cv.height, g = verify.geom;
+  c.clearRect(0, 0, W, H);
   if (!$("guideTog").checked || !g) return;
-  c.lineWidth = 3; c.font = "bold 30px system-ui, sans-serif";
-  c.fillStyle = "rgba(46,204,113,0.15)";
-  c.fillRect(0, O * (1 - SPEC.eyeMax), O, O * (SPEC.eyeMax - SPEC.eyeMin));
+  c.lineWidth = Math.max(2, H / 400); c.font = `bold ${Math.round(H / 40)}px system-ui, sans-serif`;
+  const band = (a, b, color) => { c.fillStyle = color; c.fillRect(0, H * a, W, H * (b - a)); };
   const line = (y, color, label, dash) => {
-    c.setLineDash(dash ? [16, 10] : []); c.strokeStyle = color; c.beginPath(); c.moveTo(0, y); c.lineTo(O, y); c.stroke();
+    c.setLineDash(dash ? [16, 10] : []); c.strokeStyle = color; c.beginPath(); c.moveTo(0, y); c.lineTo(W, y); c.stroke();
     if (label) { c.fillStyle = color; c.fillText(label, 12, y - 8); }
   };
-  line(O * (1 - SPEC.eyeMax), "#2ecc71", "", true); line(O * (1 - SPEC.eyeMin), "#2ecc71", "", true);
-  line(g.top * O, "#3d8bfd", "top of head"); line(g.chin * O, "#3d8bfd", "chin");
-  line(g.eyeY * O, "#ff8c00", "eyes");
-  c.setLineDash([16, 10]); c.strokeStyle = "#ff8c00"; c.beginPath(); c.moveTo(O / 2, 0); c.lineTo(O / 2, O); c.stroke();
+  if (SPEC.eyeMin != null) {
+    band(1 - SPEC.eyeMax, 1 - SPEC.eyeMin, "rgba(46,204,113,0.15)");
+    line(H * (1 - SPEC.eyeMax), "#2ecc71", "", true); line(H * (1 - SPEC.eyeMin), "#2ecc71", "", true);
+  }
+  if (SPEC.topMin != null) band(SPEC.topMin, SPEC.topMax, "rgba(61,139,253,0.15)");
+  if (SPEC.headMeasure !== "hair") line(g.hair * H, "#9aa7b4", "top of hair", true);
+  line(g.top * H, "#3d8bfd", { hair: "top of head", skull: "top of skull", hairline: "hairline" }[SPEC.headMeasure]);
+  line(g.chin * H, "#3d8bfd", "chin");
+  line(g.eyeY * H, "#ff8c00", "eyes");
+  c.setLineDash([16, 10]); c.strokeStyle = "#ff8c00"; c.beginPath(); c.moveTo(W / 2, 0); c.lineTo(W / 2, H); c.stroke();
   c.setLineDash([]);
 }
 
@@ -644,16 +783,23 @@ function download(blob, name) {
 }
 const stamp = () => new Date().toISOString().slice(0, 19).replace(/[T:]/g, "-");
 
+// 4x6 in (≈10x15 cm) landscape sheet at 300 dpi, photos at true size with cut lines.
+function sheetLayout() {
+  const SW = 1800, SH = 1200, gap = 20, pw = Math.round(SPEC.w_mm / 25.4 * 300), ph = Math.round(SPEC.h_mm / 25.4 * 300);
+  const cols = Math.max(1, Math.floor((SW - gap) / (pw + gap))), rows = Math.max(1, Math.floor((SH - gap - 50) / (ph + gap)));
+  return { SW, SH, gap, pw, ph, cols, rows, count: cols * rows };
+}
 async function printSheet() {
-  // 4x6 in at 300 dpi, two 2x2 in photos with thin cut lines.
-  const s = document.createElement("canvas"); s.width = 1800; s.height = 1200;
-  const c = s.getContext("2d"); c.fillStyle = "#fff"; c.fillRect(0, 0, 1800, 1200);
-  for (const x of [200, 1000]) {
-    c.drawImage(window._outCanvas, x, 300, 600, 600);
-    c.strokeStyle = "#bbb"; c.lineWidth = 1; c.strokeRect(x - 0.5, 299.5, 601, 601);
+  const L = sheetLayout(), s = document.createElement("canvas"); s.width = L.SW; s.height = L.SH;
+  const c = s.getContext("2d"); c.fillStyle = "#fff"; c.fillRect(0, 0, L.SW, L.SH);
+  const x0 = (L.SW - L.cols * L.pw - (L.cols - 1) * L.gap) / 2, y0 = (L.SH - L.rows * L.ph - (L.rows - 1) * L.gap) / 2 + 20;
+  for (let i = 0; i < L.cols; i++) for (let j = 0; j < L.rows; j++) {
+    const x = Math.round(x0 + i * (L.pw + L.gap)), y = Math.round(y0 + j * (L.ph + L.gap));
+    c.drawImage(window._outCanvas, x, y, L.pw, L.ph);
+    c.strokeStyle = "#bbb"; c.lineWidth = 1; c.strokeRect(x - 0.5, y - 0.5, L.pw + 1, L.ph + 1);
   }
   c.fillStyle = "#888"; c.font = "24px sans-serif";
-  c.fillText("Print at 4×6 in, 100% scale. Cut on the gray lines (2×2 in).", 200, 1000);
+  c.fillText(`${SPEC.name} passport photo, ${sizeLabel(SPEC)}. Print at 4×6 in / 10×15 cm, 100% scale. Cut on the grey lines.`, 30, 36);
   return new Promise(res => s.toBlob(res, "image/jpeg", 0.95));
 }
 
@@ -688,15 +834,20 @@ $("autoBtn").onclick = () => {
 $("shutter").onclick = () => { if (live && faceLM) capture(); };
 $("retakeBtn").onclick = openCamera;
 $("guideTog").onchange = drawResultGuides;
-$("saveBtn").onclick = () => download(resultBlob, `passport-photo-${stamp()}.jpg`);
+const fileName = kind => `passport-${kind}-${SPEC.code}-${stamp()}.jpg`;
+$("saveBtn").onclick = () => download(resultBlob, fileName("photo"));
 $("shareBtn").onclick = async () => {
-  const f = new File([resultBlob], `passport-photo-${stamp()}.jpg`, { type: "image/jpeg" });
+  const f = new File([resultBlob], fileName("photo"), { type: "image/jpeg" });
   try { await navigator.share({ files: [f], title: "Passport photo" }); } catch (e) { if (e.name !== "AbortError") alert(e.message); }
 };
-$("sheetBtn").onclick = async () => download(await printSheet(), `passport-print-4x6-${stamp()}.jpg`);
+$("sheetBtn").onclick = async () => download(await printSheet(), fileName("print-sheet"));
 
-// Lets the pipeline be tested from the console with any image: await __passport(imgOrCanvas)
-window.__passport = async src => { await modelsReady; const out = processPhoto(src); const v = verify(out); await showResult(out, v); return v; };
+// Lets the pipeline be tested from the console with any image: await __passport(imgOrCanvas, "GB")
+window.__passport = async (src, code) => {
+  await modelsReady;
+  if (code) { $("country").value = code; setCountry(code); }
+  const out = processPhoto(src); const v = verify(out); await showResult(out, v); return v;
+};
 </script>
 </body>
 </html>
