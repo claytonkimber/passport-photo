@@ -1,0 +1,79 @@
+/* Shared styles for the landing page and the country pages (the camera app has its own). */
+:root {
+  --bg: #f7f9fc; --panel: #ffffff; --text: #111827; --muted: #556070; --border: #e3e8ef;
+  --accent: #2563eb; --accent-text: #ffffff; --soft: #eaf1ff;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b0f14; --panel: #151b23; --text: #eef2f6; --muted: #9aa7b4; --border: #263040;
+    --accent: #3d8bfd; --accent-text: #ffffff; --soft: #16233a;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font: 17px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+a { color: var(--accent); }
+img { max-width: 100%; height: auto; }
+.wrap { max-width: 980px; margin: 0 auto; padding: 0 16px; }
+
+header.site { border-bottom: 1px solid var(--border); background: var(--panel); }
+header.site .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 60px; }
+.brand { display: flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none; font-weight: 700; }
+.brand img { width: 32px; height: 32px; }
+nav.site { display: flex; gap: 16px; font-size: 15px; }
+nav.site a { color: var(--muted); text-decoration: none; }
+nav.site a:hover { color: var(--text); }
+@media (max-width: 560px) { nav.site { display: none; } }
+
+.hero { padding-top: 48px; padding-bottom: 32px; }
+.hero h1 { font-size: clamp(32px, 7vw, 52px); line-height: 1.1; margin: 0 0 14px; letter-spacing: -0.02em; text-wrap: balance; }
+.hero p.lead { font-size: clamp(18px, 2.6vw, 21px); color: var(--muted); margin: 0 0 24px; max-width: 640px; }
+.cta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.button { display: inline-block; font: inherit; font-weight: 650; border: 1px solid var(--border); border-radius: 12px;
+  padding: 13px 20px; background: var(--panel); color: var(--text); text-decoration: none; cursor: pointer; }
+.button.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-text); }
+.button[hidden] { display: none; }
+.note { font-size: 14px; color: var(--muted); }
+
+section { padding: 28px 0; }
+section h2 { font-size: clamp(24px, 4vw, 30px); margin: 0 0 16px; letter-spacing: -0.01em; }
+.grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.card { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 18px; }
+.card h3 { margin: 0 0 6px; font-size: 18px; }
+.card p { margin: 0; color: var(--muted); font-size: 16px; }
+ol.steps { padding-left: 22px; margin: 0; }
+ol.steps li { margin: 0 0 12px; }
+ol.steps b { display: block; }
+
+.countries { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+.countries a { display: block; background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+  padding: 12px 14px; color: var(--text); text-decoration: none; }
+.countries a:hover { border-color: var(--accent); }
+.countries small { display: block; color: var(--muted); font-size: 14px; }
+
+.install { background: var(--soft); border-radius: 16px; padding: 22px; }
+.install h2 { margin-bottom: 8px; }
+.install p { margin: 6px 0; }
+
+details.faq { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; margin: 0 0 10px; }
+details.faq summary { cursor: pointer; font-weight: 650; }
+details.faq p { color: var(--muted); margin: 10px 0 2px; }
+
+dl.rules { display: grid; grid-template-columns: minmax(130px, 34%) 1fr; gap: 0; margin: 0;
+  background: var(--panel); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+dl.rules dt, dl.rules dd { margin: 0; padding: 12px 16px; border-top: 1px solid var(--border); }
+dl.rules dt { color: var(--muted); font-size: 15px; }
+dl.rules dt:first-of-type, dl.rules dt:first-of-type + dd { border-top: 0; }
+@media (max-width: 480px) {
+  dl.rules { grid-template-columns: 1fr; }
+  dl.rules dd { border-top: 0; padding-top: 0; }
+}
+
+.support { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.disclaimer p { color: var(--muted); font-size: 15px; }
+footer.site { border-top: 1px solid var(--border); padding: 24px 0 40px; color: var(--muted); font-size: 15px; }
+footer.site .wrap { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+footer.site a { color: var(--muted); }

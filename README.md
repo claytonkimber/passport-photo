@@ -1,8 +1,8 @@
 # Passport Photo
 
-A single static page that turns a phone browser into a passport photo camera for any country.
+A free passport photo camera that runs in the phone's browser, and installs like an app on Android and iPhone without an app store.
 
-**Live:** https://claytonkimber.github.io/passport-photo/
+**Live:** https://claytonkimber.github.io/passport-photo/ (the camera itself is at [`/app/`](https://claytonkimber.github.io/passport-photo/app/))
 
 > A free, best-effort tool provided as is, with no warranty: it can make mistakes, so check your photo before you submit it. See the [Disclaimer](#disclaimer).
 
@@ -13,6 +13,7 @@ A single static page that turns a phone browser into a passport photo camera for
 - Auto-capture with a 3-2-1 countdown once every check passes
 - After capture: crops to the country's geometry, shifts the wall to the required background color the way a photo booth's backdrop looks (edge-aware, so hair and ears aren't cut), then runs the face checks again on the final image
 - Saves a JPEG at 600 dpi (or the country's online minimum, if larger), plus a 4×6 in / 10×15 cm print sheet with as many photos as fit
+- Installable web app (PWA): add it to the home screen from Chrome on Android or Safari on iPhone. After the first use it works offline, because the face-detection library and models are cached on the phone.
 
 Runs fully on-device with [MediaPipe Tasks Vision](https://ai.google.dev/edge/mediapipe/solutions/vision/face_landmarker) (face landmarks and blendshapes, selfie multiclass segmentation). No photo leaves the phone.
 
@@ -26,6 +27,21 @@ Rules live in [`specs.js`](specs.js), one entry per country, in millimetres. A c
 [`evidence.json`](evidence.json) has the official page and the exact quoted wording behind each value. Corrections are welcome: edit the entry and cite the official page.
 
 Not checked automatically: glasses, hats, and head coverings. The page asks the user to check those.
+
+## How the site is built
+
+Plain static files, served by GitHub Pages; there is no build step to deploy.
+
+| Path | What it is |
+|---|---|
+| `index.html` | Landing page (search-friendly description, install instructions, FAQ, disclaimer) |
+| `app/` | The camera app |
+| `<country>/` | One page per supported country, e.g. [`united-kingdom/`](united-kingdom/) |
+| `specs.js`, `evidence.json` | Country rules and the official wording behind them |
+| `manifest.webmanifest`, `sw.js`, `install.js`, `icons/` | Installable app: manifest, offline cache, install buttons, icons |
+| `tools/build-site.mjs` | Generates the country pages, the landing page's country list and `sitemap.xml` |
+
+After editing `specs.js`, run `node tools/build-site.mjs` and commit the result. If the site moves to its own domain, change `SITE` at the top of that script and the canonical and `og:` URLs in `index.html` and `app/index.html`.
 
 ## Report a bug
 
