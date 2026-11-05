@@ -187,7 +187,8 @@
 <script type="module">
 import { FilesetResolver, FaceLandmarker, ImageSegmenter }
   from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs";
-import { ICAO, SPECS } from "./specs.js";
+// Bump ?v= whenever specs.js changes shape, so a fresh page never pairs with a cached old data file.
+import { ICAO, SPECS } from "./specs.js?v=2";
 
 // Background colors the output can be lifted to.
 const BG_RGB = {
