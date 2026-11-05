@@ -24,3 +24,14 @@ Rules live in [`specs.js`](specs.js), one entry per country, in millimetres. A c
 [`evidence.json`](evidence.json) has the official page and the exact quoted wording behind each value. Corrections are welcome: edit the entry and cite the official page.
 
 Not checked automatically: glasses, hats, and head coverings. The page asks the user to check those.
+
+## Support
+
+This app is free, has no ads, and never uploads your photo. If it saved you a trip to a photo shop, you can support it:
+
+- [Support me on Ko-fi](https://ko-fi.com/wiseaddon)
+- [Donate with PayPal or card](https://www.paypal.com/donate/?hosted_button_id=WKTVYE2X9UX4G), or scan with the PayPal app:
+
+<img src="paypal-qr.png" alt="PayPal QR code" width="200">
+
+The same links are in the app's **Support me** tab, next to your finished photo.

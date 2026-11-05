@@ -94,6 +94,16 @@
   .btns { display: grid; gap: 10px; margin-top: 14px; }
   label.tog { display: flex; align-items: center; gap: 8px; justify-content: center; color: var(--muted); font-size: 14px; margin-top: 10px; }
   .fine { color: var(--muted); font-size: 13px; margin-top: 16px; }
+  .tabs { display: flex; gap: 4px; background: var(--panel); padding: 4px; border-radius: 12px; margin-bottom: 14px; }
+  .tabs button { flex: 1; padding: 10px; border-radius: 9px; background: none; color: var(--muted); font-weight: 600; }
+  .tabs button[aria-selected="true"] { background: var(--accent); color: #fff; }
+  a.btn { display: block; text-align: center; text-decoration: none; border-radius: 12px; padding: 14px 18px;
+    background: var(--panel); color: var(--text); }
+  a.btn.primary { background: var(--accent); color: #fff; font-weight: 600; }
+  #panelSupport h2 { font-size: 20px; margin: 6px 0 8px; }
+  #panelSupport p { color: var(--muted); margin: 0 0 6px; }
+  .qr { display: block; width: 220px; height: 220px; margin: 8px auto 0; background: #fff; border-radius: 12px; padding: 6px; }
+  .center { text-align: center; }
 </style>
 </head>
 <body>
@@ -167,6 +177,11 @@
 <!-- RESULT -->
 <section id="result" class="screen">
   <div class="wrap">
+    <div class="tabs" role="tablist" aria-label="Result">
+      <button role="tab" id="tabPhoto" aria-controls="panelPhoto" aria-selected="true">Your photo</button>
+      <button role="tab" id="tabSupport" aria-controls="panelSupport" aria-selected="false" tabindex="-1">Support me</button>
+    </div>
+    <div id="panelPhoto" role="tabpanel" aria-labelledby="tabPhoto">
     <div class="photoBox">
       <img id="resultImg" alt="Passport photo">
       <canvas id="resultGuides"></canvas>
@@ -181,6 +196,17 @@
       <button id="retakeBtn">Retake</button>
     </div>
     <p class="fine">Use the single photo for online applications. Print the 4×6 in (10×15 cm) sheet at 100% (no cropping or "fit") at any photo kiosk, then cut along the grey lines.</p>
+    </div>
+    <div id="panelSupport" role="tabpanel" aria-labelledby="tabSupport" hidden>
+      <h2>Support this app</h2>
+      <p>This app is free, has no ads, and never uploads your photo. If it saved you a trip to a photo shop, you can chip in.</p>
+      <div class="btns">
+        <a class="btn primary" href="https://ko-fi.com/wiseaddon" target="_blank" rel="noopener">Support me on Ko-fi</a>
+        <a class="btn" href="https://www.paypal.com/donate/?hosted_button_id=WKTVYE2X9UX4G" target="_blank" rel="noopener">Donate with PayPal or card</a>
+      </div>
+      <p class="fine center">Or scan with the PayPal app on another phone:</p>
+      <img class="qr" src="paypal-qr.png" alt="PayPal QR code" width="220" height="220" loading="lazy">
+    </div>
   </div>
 </section>
 
@@ -750,7 +776,25 @@ async function showResult(out, checks) {
   $("shareBtn").style.display = navigator.canShare?.({ files: [new File([resultBlob], "p.jpg", { type: "image/jpeg" })] }) ? "" : "none";
   $("sheetBtn").textContent = `Save 4×6 in (10×15 cm) print sheet (${sheetLayout().count} photos)`;
   drawResultGuides();
+  selectTab("tabPhoto");
   show("result");
+}
+
+const TABS = [["tabPhoto", "panelPhoto"], ["tabSupport", "panelSupport"]];
+function selectTab(id) {
+  for (const [tab, panel] of TABS) {
+    const on = tab === id;
+    $(tab).setAttribute("aria-selected", on); $(tab).tabIndex = on ? 0 : -1; $(panel).hidden = !on;
+  }
+  $("result").scrollTop = 0;
+}
+for (const [tab] of TABS) {
+  $(tab).onclick = () => selectTab(tab);
+  $(tab).onkeydown = e => {                                           // arrow keys move between tabs
+    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+    const other = TABS.find(([t]) => t !== tab)[0];
+    selectTab(other); $(other).focus();
+  };
 }
 
 function drawResultGuides() {
