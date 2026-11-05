@@ -2,9 +2,9 @@
 
 A single static page that turns a phone browser into a passport photo camera for any country.
 
-**Live:** https://claytonkimber.github.io/us-passport-photo/
+**Live:** https://claytonkimber.github.io/passport-photo/
 
-- Pick your passport country: every country is listed. Countries with researched rules use their own photo size, head size, eye line, top margin and background color; the rest use the ICAO international standard (35×45 mm, head 32–36 mm) that most passports follow, and the page says so.
+- Pick your passport country. Each listed country uses its own photo size, head size (and how it's measured), eye line, top margin and background color. "Other country" uses the ICAO international standard (35×45 mm, head 32–36 mm) that most passports follow, and the page says it hasn't been checked against that country's rules.
 - Live camera preview with alignment guides in the photo's real shape (head oval, eye-line band, crop box)
 - Live checks: one face, size, centering, head tilt, facing the camera, no smile, mouth closed, eyes open, looking at the lens, plain and light background, even lighting, exposure
 - Light button: the back camera's LED torch, or a white screen for the front camera
@@ -16,6 +16,11 @@ Runs fully on-device with [MediaPipe Tasks Vision](https://ai.google.dev/edge/me
 
 ## Country rules
 
-Rules live in [`specs.js`](specs.js), one entry per country, in millimetres, with the source URL and a confidence rating (`high` = the passport authority's own page; `medium`/`low` = consulates or secondary sources). The page shows that rating to the user. Corrections are welcome: edit the entry and cite the official page.
+Rules live in [`specs.js`](specs.js), one entry per country, in millimetres. A country is listed only when:
 
-Not checked automatically: glasses, hats, and head coverings. The page asks the user to check those. Many countries take the photo at the passport office; the page notes this where known.
+- every value was confirmed on an official government page (passport authority, ministry, or the country's own embassy), and
+- the applicant supplies the photo and may take it themselves. Countries that photograph applicants at the office, or require a certified photographer or studio, are left out because this app can't help there.
+
+[`evidence.json`](evidence.json) has the official page and the exact quoted wording behind each value. Corrections are welcome: edit the entry and cite the official page.
+
+Not checked automatically: glasses, hats, and head coverings. The page asks the user to check those.

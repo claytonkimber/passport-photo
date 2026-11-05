@@ -1,0 +1,707 @@
+{
+ "AU": {
+  "name": "Australia",
+  "source": "https://www.passports.gov.au/help/passport-photos",
+  "evidence": [
+   {
+    "fields": [
+     "w_mm",
+     "h_mm"
+    ],
+    "url": "https://www.passports.gov.au/help/passport-photos",
+    "quote": "Your photos must be: 35–40 mm wide 45–50 mm high."
+   },
+   {
+    "fields": [
+     "head_min_mm",
+     "head_max_mm",
+     "head_measure"
+    ],
+    "url": "https://www.passports.gov.au/help/passport-photos",
+    "quote": "The height of your face, from your chin to your crown, must be 32–36 mm."
+   },
+   {
+    "fields": [
+     "bg"
+    ],
+    "url": "https://www.passports.gov.au/help/passport-photos",
+    "quote": "a plain white or light grey background that contrasts with your face"
+   },
+   {
+    "fields": [
+     "glasses_allowed"
+    ],
+    "url": "https://www.passports.gov.au/help/passport-photos",
+    "quote": "You must not wear glasses in a passport photo unless you can't remove them for medical reasons."
+   },
+   {
+    "fields": [
+     "self_photo_accepted"
+    ],
+    "url": "https://www.passports.gov.au/help/passport-photos",
+    "quote": "While professional passport photo providers are recommended, all photos must still meet our passport photo guidelines."
+   },
+   {
+    "fields": [
+     "taken_at_office"
+    ],
+    "url": "https://www.passports.gov.au/help/passport-photos",
+    "quote": "When you apply for a passport, you'll need to include 2 good-quality photos that meet all of the requirements on this page."
+   }
+  ],
+  "open_questions": "The passports.gov.au online-renewal page returned 'Access denied', so whether a fully online renewal still exists (and needs a provider photo code) was not checked. No official pixel spec found."
+ },
+ "HK": {
+  "name": "Hong Kong",
+  "source": "https://www.immd.gov.hk/eng/residents/immigration/traveldoc/photorequirements.html",
+  "evidence": [
+   {
+    "fields": [
+     "w_mm",
+     "h_mm"
+    ],
+    "url": "https://www.immd.gov.hk/eng/residents/immigration/traveldoc/photorequirements.html",
+    "quote": "The size of the photograph must be 40mm (width) X 50mm (height)."
+   },
+   {
+    "fields": [
+     "head_min_mm",
+     "head_max_mm",
+     "head_measure"
+    ],
+    "url": "https://www.immd.gov.hk/hkt/residents/immigration/traveldoc/photorequirements.html",
+    "quote": "照片中人士由下顎至頭頂的尺寸應為32毫米至36毫米，頭頂上須保留適當空位。"
+   },
+   {
+    "fields": [
+     "bg"
+    ],
+    "url": "https://www.immd.gov.hk/eng/residents/immigration/traveldoc/photorequirements.html",
+    "quote": "The photograph should have a plain white background."
+   },
+   {
+    "fields": [
+     "digital_px",
+     "self_photo_accepted"
+    ],
+    "url": "https://www.immd.gov.hk/hkt/residents/immigration/traveldoc/photorequirements.html",
+    "quote": "由數碼相機擷取–圖像大小：最少1200像素(闊) X 1600像素(高)"
+   },
+   {
+    "fields": [
+     "glasses_allowed"
+    ],
+    "url": "https://www.immd.gov.hk/hkt/residents/immigration/traveldoc/photorequirements.html",
+    "quote": "申請人的眼鏡遮擋眼睛 / 申請人的面部／眼鏡反光 (rejected examples)"
+   },
+   {
+    "fields": [
+     "taken_at_office"
+    ],
+    "url": "https://www.immd.gov.hk/eng/kiosk.html",
+    "quote": "Applicant can choose to submit photograph by using the photograph taking service"
+   }
+  ],
+  "open_questions": "ImmD does not explicitly mention phone selfies; self_photo=true rests on its acceptance of uploaded digital-camera images. Kiosk photo service is optional, so applicants otherwise supply the photo."
+ },
+ "IT": {
+  "name": "Italy",
+  "source": "https://www.poliziadistato.it/articolo/10301",
+  "evidence": [
+   {
+    "fields": [
+     "w_mm",
+     "h_mm"
+    ],
+    "url": "https://www.poliziadistato.it/articolo/10301",
+    "quote": "grandezza: 35x45 mm;"
+   },
+   {
+    "fields": [
+     "head_min_mm",
+     "head_max_mm",
+     "head_measure"
+    ],
+    "url": "https://www.poliziadistato.it/articolo/10301",
+    "quote": "il viso deve coprire il 70-80% della foto dalla base del mento alla fronte;"
+   },
+   {
+    "fields": [
+     "bg"
+    ],
+    "url": "https://www.poliziadistato.it/articolo/10301",
+    "quote": "lo sfondo deve essere bianco e con luce uniforme;"
+   },
+   {
+    "fields": [
+     "w_mm"
+    ],
+    "url": "https://www.poliziadistato.it/statics/10/fotografia_passaporto_web.pdf",
+    "quote": "avere una larghezza di 35–40mm"
+   },
+   {
+    "fields": [
+     "glasses_allowed"
+    ],
+    "url": "https://www.poliziadistato.it/articolo/10301",
+    "quote": "gli occhiali da vista non devono avere lenti colorate (c.d. “occhiali da sole”);"
+   },
+   {
+    "fields": [
+     "self_photo_accepted"
+    ],
+    "url": "https://www.poliziadistato.it/statics/10/fotografia_passaporto_web.pdf",
+    "quote": "Le foto scattate con macchina digitale devono essere di alta qualità e a colori ed essere stampate su carta fotografica di qualità"
+   },
+   {
+    "fields": [
+     "taken_at_office"
+    ],
+    "url": "https://www.poliziadistato.it/articolo/10301",
+    "quote": "1 fotografia recente, frontale su sfondo bianco, conforme alle norme ICAO."
+   }
+  ],
+  "open_questions": "'Alla fronte' (to the forehead) is ambiguous between hairline and top of head. The official leaflet/GU 2009 annex gives width 35-40 mm and 'sfondo chiaro', the web page 35x45 and white. No official text explicitly addresses home photos."
+ },
+ "JP": {
+  "name": "Japan",
+  "source": "https://www.mofa.go.jp/mofaj/toko/passport/ic_photo.html",
+  "evidence": [
+   {
+    "fields": [
+     "w_mm",
+     "h_mm",
+     "head_min_mm",
+     "head_max_mm",
+     "top_min_mm",
+     "top_max_mm"
+    ],
+    "url": "https://www.mofa.go.jp/mofaj/files/100804025.jpg",
+    "quote": "MOFA diagram labels (単位：mm): 45, 35, 34±2 (top of hair to chin), 4±2 (above head), 7±2 (below chin)"
+   },
+   {
+    "fields": [
+     "w_mm",
+     "h_mm"
+    ],
+    "url": "https://www.pref.osaka.lg.jp/o070140/passport/top/shashin.html",
+    "quote": "縦45ミリメートル×横35ミリメートル"
+   },
+   {
+    "fields": [
+     "head_min_mm",
+     "head_max_mm",
+     "head_measure"
+    ],
+    "url": "https://www.pref.osaka.lg.jp/o070140/passport/top/shashin.html",
+    "quote": "顔の寸法は、頭頂からあごまでが34ミリメートル±2ミリメートル"
+   },
+   {
+    "fields": [
+     "head_measure"
+    ],
+    "url": "https://www.pref.kagawa.lg.jp/kokusai/passport/syashin.html",
+    "quote": "目から顎までの幅と同程度の幅を目から上方髪の方にとり、その部分を頭頂とみなせるよう、サイズを調整してください。"
+   },
+   {
+    "fields": [
+     "bg"
+    ],
+    "url": "https://www.pref.gunma.jp/04/p03600021.html",
+    "quote": "背景（影を含む）がないもの（背景は白色を推奨します）"
+   },
+   {
+    "fields": [
+     "bg"
+    ],
+    "url": "https://www.pref.kagawa.lg.jp/kokusai/passport/syashin.html",
+    "quote": "背景が無地の淡い色（グラデーション不可）で、背景と顔（髪）とのコントラストがはっきりしたもの"
+   },
+   {
+    "fields": [
+     "glasses_allowed"
+    ],
+    "url": "https://www.pref.gunma.jp/04/p03600021.html",
+    "quote": "眼鏡を着用するとき、色付きのレンズや反射・影があるものは不適当です。"
+   },
+   {
+    "fields": [
+     "taken_at_office"
+    ],
+    "url": "https://www.mofa.go.jp/mofaj/toko/passport/ic_photo.html",
+    "quote": "旅券用写真を提出して頂くにあたり、下記お知らせに記載している事項に従い準備をお願いいたします。"
+   },
+   {
+    "fields": [
+     "self_photo_accepted"
+    ],
+    "url": "https://www.mofa.go.jp/mofaj/toko/passport/page24_002222.html",
+    "quote": "申請中にアプリによる撮影も可能ですが、あらかじめ写真館等で撮影した顔写真データをアップロードする場合は"
+   }
+  ],
+  "open_questions": "MOFA's notice PDF (100171389.pdf) could not be opened, so 'pale blue still accepted' is not confirmed in 2025 wording; light blue/grey rest on Kagawa's 'plain pale colour' text. Gunma warns self-taken photos may fail the spec. No eye-line rule."
+ },
+ "NL": {
+  "name": "Netherlands",
+  "source": "https://www.rijksoverheid.nl/themas/migratie-en-reizen/paspoort-en-identiteitskaart/eisen-pasfoto-paspoort-id-kaart",
+  "evidence": [
+   {
+    "fields": [
+     "w_mm",
+     "h_mm"
+    ],
+    "url": "https://www.rijksoverheid.nl/themas/migratie-en-reizen/paspoort-en-identiteitskaart/eisen-pasfoto-paspoort-id-kaart",
+    "quote": "Vast formaat: 35 mm x 45 mm (breedte x hoogte)."
+   },
+   {
+    "fields": [
+     "head_min_mm",
+     "head_max_mm",
+     "head_measure"
+    ],
+    "url": "https://www.rijksoverheid.nl/themas/migratie-en-reizen/paspoort-en-identiteitskaart/eisen-pasfoto-paspoort-id-kaart",
+    "quote": "Vanaf 11 jaar: van kin tot kruin minimaal 26 mm en maximaal 30 mm."
+   },
+   {
+    "fields": [
+     "head_measure"
+    ],
+    "url": "https://open.overheid.nl/documenten/0a2b6c4a-b51d-4ef5-9740-c927250e5903/file",
+    "quote": "Alleen bij personen met een grote haardos kan het voorkomen dat de haardos niet geheel afgebeeld wordt."
+   },
+   {
+    "fields": [
+     "bg"
+    ],
+    "url": "https://www.rijksoverheid.nl/themas/migratie-en-reizen/paspoort-en-identiteitskaart/eisen-pasfoto-paspoort-id-kaart",
+    "quote": "lichtgrijs, lichtblauw of wit; egaal; éénkleurig; geen kleurverloop"
+   },
+   {
+    "fields": [
+     "glasses_allowed"
+    ],
+    "url": "https://www.rijksoverheid.nl/themas/migratie-en-reizen/paspoort-en-identiteitskaart/eisen-pasfoto-paspoort-id-kaart",
+    "quote": "Af en toe een bril | Ja. Aanvrager mag zelf kiezen: wel of geen bril"
+   },
+   {
+    "fields": [
+     "self_photo_accepted",
+     "taken_at_office"
+    ],
+    "url": "https://www.rijksoverheid.nl/themas/migratie-en-reizen/paspoort-en-identiteitskaart/eisen-pasfoto-paspoort-id-kaart",
+    "quote": "afgedrukt op hoogwaardig, glad fotopapier; minimaal 400 dpi resolutie"
+   }
+  ],
+  "open_questions": "'Kruin' (crown) is not defined in words; the Fotomatrix 2020 diagram puts the top of short hair at the 30 mm line. No official text explicitly addresses home-taken photos; only print quality is required."
+ },
+ "NZ": {
+  "name": "New Zealand",
+  "source": "https://www.passports.govt.nz/passport-photos",
+  "evidence": [
+   {
+    "fields": [
+     "w_mm",
+     "h_mm"
+    ],
+    "url": "https://www.passports.govt.nz/__data/assets/pdf_file/0024/54753/PAS300-Application-for-a-New-Zealand-passport-Adult-Renewal.pdf",
+    "quote": "be standard size 35mm x 45mm."
+   },
+   {
+    "fields": [
+     "head_min_mm",
+     "head_max_mm",
+     "head_measure"
+    ],
+    "url": "https://www.passports.govt.nz/__data/assets/pdf_file/0024/54753/PAS300-Application-for-a-New-Zealand-passport-Adult-Renewal.pdf",
+    "quote": "Head, including hair, must be 80% of image height."
+   },
+   {
+    "fields": [
+     "bg"
+    ],
+    "url": "https://www.passports.govt.nz/__data/assets/pdf_file/0024/54753/PAS300-Application-for-a-New-Zealand-passport-Adult-Renewal.pdf",
+    "quote": "The background must be plain and light, but not white."
+   },
+   {
+    "fields": [
+     "bg"
+    ],
+    "url": "https://www.passports.govt.nz/__data/assets/text_file/0028/46738/transcript-of-how-to-take-a-passport-photo-iphone-v2.txt",
+    "quote": "Pale blues, greys and creams work better than white."
+   },
+   {
+    "fields": [
+     "digital_px"
+    ],
+    "url": "https://www.passports.govt.nz/passport-photos",
+    "quote": "900–4500 pixels wide and 1200–6000 pixels high"
+   },
+   {
+    "fields": [
+     "glasses_allowed"
+    ],
+    "url": "https://www.passports.govt.nz/passport-photos",
+    "quote": "You can wear prescription glasses in your photo if they are not tinted or thick-framed."
+   },
+   {
+    "fields": [
+     "self_photo_accepted",
+     "taken_at_office"
+    ],
+    "url": "https://www.passports.govt.nz/passport-photos",
+    "quote": "You can use a professional passport photo service or take a photo with your own device."
+   },
+   {
+    "fields": [
+     "self_photo_accepted"
+    ],
+    "url": "https://www.passports.govt.nz/passport-photos",
+    "quote": "Get someone else to take your photo Selfies will be rejected."
+   }
+  ],
+  "open_questions": "80% is stated as a single value (converted 0.8 x 45 = 36 mm); the allowed tolerance is not stated. The printed-photo spec comes from the PAS300 paper renewal form (updated 13 Aug 2026); the web page gives only digital specs."
+ },
+ "PL": {
+  "name": "Poland",
+  "source": "https://www.gov.pl/web/gov/zdjecie-do-dowodu-lub-paszportu",
+  "evidence": [
+   {
+    "fields": [
+     "w_mm",
+     "h_mm"
+    ],
+    "url": "https://www.gov.pl/web/gov/zdjecie-do-dowodu-lub-paszportu",
+    "quote": "jeśli składasz wniosek w urzędzie – dołącz kolorowe zdjęcie na papierze w formacie 35 x 45 mm (szerokość x wysokość)"
+   },
+   {
+    "fields": [
+     "head_min_mm",
+     "head_max_mm"
+    ],
+    "url": "https://www.gov.pl/attachment/6d6870e4-ac3e-4aa2-b2f5-a11ccca49858",
+    "quote": "Wysokość głowy musi zajmować 70-80% zdjęcia, tj. 31-36mm."
+   },
+   {
+    "fields": [
+     "head_measure"
+    ],
+    "url": "https://www.gov.pl/web/gov/zdjecie-do-dowodu-lub-paszportu",
+    "quote": "zdjęcie powinno przedstawiać całą głowę (od jej czubka) oraz górną część barków, twarz powinna zajmować 70-80% zdjęcia"
+   },
+   {
+    "fields": [
+     "eye_min_mm",
+     "eye_max_mm"
+    ],
+    "url": "https://www.gov.pl/attachment/6d6870e4-ac3e-4aa2-b2f5-a11ccca49858",
+    "quote": "Oczy powinny znajdować się na wysokości 20-30mm od dolnej krawędzi zdjęcia"
+   },
+   {
+    "fields": [
+     "bg"
+    ],
+    "url": "https://www.gov.pl/web/gov/zdjecie-do-dowodu-lub-paszportu",
+    "quote": "Tło i oświetlenie zdjęcia białe, oświetlone jednolicie, pozbawione cieni i elementów ozdobnych"
+   },
+   {
+    "fields": [
+     "bg"
+    ],
+    "url": "https://www.gov.pl/attachment/6d6870e4-ac3e-4aa2-b2f5-a11ccca49858",
+    "quote": "Tło białe lub jasne jednorodne pozbawione cieni i elementów ozdobnych. zaleca się kolor biały lub jasnoszary."
+   },
+   {
+    "fields": [
+     "digital_px"
+    ],
+    "url": "https://www.gov.pl/web/gov/zdjecie-do-dowodu-lub-paszportu",
+    "quote": "paszport: jeśli składasz wniosek przez internet, czyli dla dziecka, które nie ukończyło 12 roku życia … minimalnej rozdzielczości 768 x 1004 piksele"
+   },
+   {
+    "fields": [
+     "glasses_allowed"
+    ],
+    "url": "https://www.gov.pl/web/gov/zdjecie-do-dowodu-lub-paszportu",
+    "quote": "jeśli nosisz okulary korekcyjne – możesz je mieć na zdjęciu, jeśli twoje oczy są dobrze widoczne"
+   },
+   {
+    "fields": [
+     "taken_at_office"
+    ],
+    "url": "https://www.gov.pl/web/gov/zdjecie-do-dowodu-lub-paszportu",
+    "quote": "Do urzędu przynieś wydrukowane zdjęcie."
+   },
+   {
+    "fields": [
+     "self_photo_accepted"
+    ],
+    "url": "https://www.gov.pl/attachment/5158a881-2e50-49de-be50-0df3fb0dccc6",
+    "quote": "wykonane na błyszczącym papierze fotograficznym lub błyszczącym papierze fotograficznym przeznaczonym do drukarek"
+   }
+  ],
+  "open_questions": "Background: gov.pl page says white; MSWiA template recommends white or light grey; statute (via uw-pomorski) says plain light. No adult pixel spec (adults apply in person with a print). Self-photo is not addressed explicitly; no photographer requirement exists and printer photo paper is allowed."
+ },
+ "SG": {
+  "name": "Singapore",
+  "source": "https://www.ica.gov.sg/photo-guidelines",
+  "evidence": [
+   {
+    "fields": [
+     "w_mm",
+     "h_mm"
+    ],
+    "url": "https://new-delhi.mfa.gov.sg/consular-services/citizens-services/application-renewal-of-singapore-passport/",
+    "quote": "Sharp and clear, 35 mm wide by 45 mm high without border and taken within the last 3 months"
+   },
+   {
+    "fields": [
+     "head_min_mm",
+     "head_max_mm",
+     "head_measure"
+    ],
+    "url": "https://new-delhi.mfa.gov.sg/consular-services/citizens-services/application-renewal-of-singapore-passport/",
+    "quote": "Taken with the image of your face measuring between 25 mm and 35 mm from chin to crown of head"
+   },
+   {
+    "fields": [
+     "bg"
+    ],
+    "url": "https://new-delhi.mfa.gov.sg/consular-services/citizens-services/application-renewal-of-singapore-passport/",
+    "quote": "Taken against a white background. However if your hair, hat or head covering is white, the background must be light gray."
+   },
+   {
+    "fields": [
+     "bg"
+    ],
+    "url": "https://www.ica.gov.sg/photo-guidelines",
+    "quote": "Photo background must be white in colour"
+   },
+   {
+    "fields": [
+     "digital_px"
+    ],
+    "url": "https://www.ica.gov.sg/photo-guidelines",
+    "quote": "Your photograph must be 400 x 514 pixels when you upload it via our e-Services."
+   },
+   {
+    "fields": [
+     "glasses_allowed"
+    ],
+    "url": "https://www.ica.gov.sg/photo-guidelines",
+    "quote": "Spectacles must have clear and untinted lenses where the eyes are clearly visible"
+   },
+   {
+    "fields": [
+     "self_photo_accepted"
+    ],
+    "url": "https://www.ica.gov.sg/photo-guidelines",
+    "quote": "We recommend downloading mobile apps specifically designed for passport or identity card photographs to help you take photographs in the required dimensions."
+   },
+   {
+    "fields": [
+     "taken_at_office"
+    ],
+    "url": "https://www.ica.gov.sg/documents/passport/apply",
+    "quote": "A passport-sized, digital, colour photograph taken within the last 3 months"
+   }
+  ],
+  "open_questions": "ICA's own pages (updated 30 Oct 2026) give no mm sizes; the size and head values come from the Singapore High Commission New Delhi page (MFA, updated 6 Nov 2025). ICA's 'white background' rule is shown in an image, not in page text."
+ },
+ "TW": {
+  "name": "Taiwan",
+  "source": "https://www.boca.gov.tw/cp-16-4123-c2932-1.html",
+  "evidence": [
+   {
+    "fields": [
+     "w_mm",
+     "h_mm"
+    ],
+    "url": "https://www.boca.gov.tw/cp-16-4123-c2932-1.html",
+    "quote": "直4.5公分且橫3.5公分（不含邊框）"
+   },
+   {
+    "fields": [
+     "head_min_mm",
+     "head_max_mm"
+    ],
+    "url": "https://www.boca.gov.tw/cp-16-4123-c2932-1.html",
+    "quote": "使人像自頭頂至下顎的長度介於3.2公分至3.6公分"
+   },
+   {
+    "fields": [
+     "head_measure"
+    ],
+    "url": "https://www.boca.gov.tw/dl-3986-cd14d6f81ef140bb91ae5d2795647d4c.html",
+    "quote": "Should be between 32mm to 36mm (diagram bracket runs from top of hair to chin)"
+   },
+   {
+    "fields": [
+     "bg"
+    ],
+    "url": "https://www.boca.gov.tw/cp-16-4123-c2932-1.html",
+    "quote": "照片背景需為白色"
+   },
+   {
+    "fields": [
+     "digital_px"
+    ],
+    "url": "https://www.boca.gov.tw/cp-16-4123-c2932-1.html",
+    "quote": "檔案大小不得大於5MB，解析高度至少需達531像素，寬度至少需達413像素。"
+   },
+   {
+    "fields": [
+     "glasses_allowed"
+    ],
+    "url": "https://www.boca.gov.tw/cp-16-4123-c2932-1.html",
+    "quote": "鏡框不得遮蓋眼睛任一部分（請勿配戴粗框眼鏡拍照）"
+   },
+   {
+    "fields": [
+     "taken_at_office"
+    ],
+    "url": "https://www.boca.gov.tw/cp-18-7140-fc0d5-1.html",
+    "quote": "照片：2張（1張黏貼，另1張浮貼於「簡式護照資料表」上。"
+   },
+   {
+    "fields": [
+     "self_photo_accepted"
+    ],
+    "url": "https://www.boca.gov.tw/cp-16-4123-c2932-1.html",
+    "quote": "使用手機自拍照片容易有鏡像（即左右臉相反）... 故請優予考慮至相館拍攝申辦護照專用照片為宜"
+   }
+  ],
+  "open_questions": "Self-taken photos are discouraged but not prohibited; acceptance depends on meeting the spec."
+ },
+ "GB": {
+  "name": "United Kingdom",
+  "source": "https://www.gov.uk/photos-for-passports/photo-requirements",
+  "evidence": [
+   {
+    "fields": [
+     "w_mm",
+     "h_mm"
+    ],
+    "url": "https://www.gov.uk/photos-for-passports/photo-requirements",
+    "quote": "measure 45 millimetres (mm) high by 35mm wide (the standard size used in photo booths in the UK)"
+   },
+   {
+    "fields": [
+     "head_min_mm",
+     "head_max_mm"
+    ],
+    "url": "https://www.gov.uk/photos-for-passports/photo-requirements",
+    "quote": "The image of you - from the crown of your head to your chin - must be between 29mm and 34mm high."
+   },
+   {
+    "fields": [
+     "head_measure"
+    ],
+    "url": "https://www.gov.uk/government/publications/passport-photos-guide-for-photographers/guidance-for-photographers",
+    "quote": "from the bottom of the chin to the crown (the top of the head, not the top of the hair)."
+   },
+   {
+    "fields": [
+     "bg"
+    ],
+    "url": "https://www.gov.uk/photos-for-passports/photo-requirements",
+    "quote": "be taken against a plain cream or light grey background"
+   },
+   {
+    "fields": [
+     "bg"
+    ],
+    "url": "https://www.gov.uk/government/publications/passport-photos-guide-for-photographers/guidance-for-photographers",
+    "quote": "shows a plain, uniform, light grey or cream background (5% to 10% grey is recommended)"
+   },
+   {
+    "fields": [
+     "digital_px"
+    ],
+    "url": "https://www.gov.uk/photos-for-passports",
+    "quote": "at least 600 pixels wide and 750 pixels tall"
+   },
+   {
+    "fields": [
+     "glasses_allowed"
+    ],
+    "url": "https://www.gov.uk/photos-for-passports/photo-requirements",
+    "quote": "Do not wear glasses in your photo unless you have to do so."
+   },
+   {
+    "fields": [
+     "self_photo_accepted",
+     "taken_at_office"
+    ],
+    "url": "https://www.gov.uk/photos-for-passports",
+    "quote": "by taking one using your own device during your passport application"
+   }
+  ],
+  "open_questions": "Photographer guidance is dated 9 April 2014 but still published on gov.uk; it says glasses should be removed, stricter than the public page."
+ },
+ "US": {
+  "name": "United States",
+  "source": "https://fam.state.gov/FAM/08FAM/08FAM040201.html",
+  "evidence": [
+   {
+    "fields": [
+     "w_mm",
+     "h_mm"
+    ],
+    "url": "https://eforms.state.gov/Forms/ds82_pdf.PDF",
+    "quote": "Attach one photo, 2x2 inches in size."
+   },
+   {
+    "fields": [
+     "head_min_mm",
+     "head_max_mm"
+    ],
+    "url": "https://eforms.state.gov/Forms/ds82_pdf.PDF",
+    "quote": "Head must be 1-1 3/8 inches from the bottom of the chin to the top of the head"
+   },
+   {
+    "fields": [
+     "head_measure"
+    ],
+    "url": "https://fam.state.gov/FAM/08FAM/08FAM040201.html",
+    "quote": "measured from the top of the head (not the hairline or the applicant's hair) to the bottom of the chin (not including facial hair)"
+   },
+   {
+    "fields": [
+     "eye_min_mm",
+     "eye_max_mm"
+    ],
+    "url": "https://ch.usembassy.gov/apply-for-your-first-u-s-passport/",
+    "quote": "Eye height is between 1 1/8 inches to 1 3/8 inches (28 mm – 35 mm) from the bottom of the photo"
+   },
+   {
+    "fields": [
+     "bg"
+    ],
+    "url": "https://eforms.state.gov/Forms/ds82_pdf.PDF",
+    "quote": "Use a plain white or off-white background"
+   },
+   {
+    "fields": [
+     "glasses_allowed"
+    ],
+    "url": "https://fam.state.gov/FAM/08FAM/08FAM040201.html",
+    "quote": "Eyeglasses are not acceptable unless they cannot be removed for medical reasons"
+   },
+   {
+    "fields": [
+     "taken_at_office"
+    ],
+    "url": "https://fam.state.gov/FAM/08FAM/08FAM040201.html",
+    "quote": "You must not accept a form DS-11 or form DS-82 received without a photograph at the public counter."
+   },
+   {
+    "fields": [
+     "self_photo_accepted"
+    ],
+    "url": "https://ch.usembassy.gov/apply-for-your-first-u-s-passport/",
+    "quote": "If you choose to submit photos printed at home, they must meet the requirements as listed above or they will be rejected."
+   }
+  ],
+  "open_questions": "travel.state.gov (photo page, online-renewal upload page) is behind a bot check and was not read, so current online-renewal pixel limits are unverified (a 2022 US Embassy Belgium page lists 600-1200 px square). That embassy page also says head 'including hair', which conflicts with the 2024 FAM (hair excluded)."
+ }
+}
