@@ -42,6 +42,10 @@ This app is free, has no ads, and never uploads your photo. If it saved you a tr
 
 The same links are in the app's **Support me** tab, next to your finished photo.
 
+## License
+
+[MIT](LICENSE): free to use, copy, modify and share, provided the copyright and license notice stay with it. The code is provided as is, without warranty of any kind.
+
 ## Disclaimer
 
 This app is a free, best-effort helper, provided "as is" and "as available". It can make mistakes. Face detection, measurements, background replacement and the live checks can be wrong; phones, cameras, lighting and browsers vary; and passport rules change without notice. Any of these can stop it from producing a photo that meets the rules, or make it report a photo as passing when it does not.
