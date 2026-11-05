@@ -37,11 +37,17 @@ Plain static files, served by GitHub Pages; there is no build step to deploy.
 | `index.html` | Landing page (search-friendly description, install instructions, FAQ, disclaimer) |
 | `app/` | The camera app |
 | `<country>/` | One page per supported country, e.g. [`united-kingdom/`](united-kingdom/) |
+| `<country>/<lang>/` | AI-assisted translation of that page for countries that search in another language: [`japan/ja/`](japan/ja/), [`italy/it/`](italy/it/), [`netherlands/nl/`](netherlands/nl/), [`poland/pl/`](poland/pl/), [`taiwan/zh-tw/`](taiwan/zh-tw/), [`hong-kong/zh-hk/`](hong-kong/zh-hk/) |
+| `tools/i18n/` | Page text: `en.json` plus one file per translation, and `check.mjs`, which confirms a translation matches the English keys and placeholders |
 | `specs.js`, `evidence.json` | Country rules and the official wording behind them |
 | `manifest.webmanifest`, `sw.js`, `install.js`, `icons/` | Installable app: manifest, offline cache, install buttons, icons |
 | `tools/build-site.mjs` | Generates the country pages, the landing page's country list and `sitemap.xml` |
 
-After editing `specs.js`, run `node tools/build-site.mjs` and commit the result. If the site moves to its own domain, change `SITE` at the top of that script and the canonical and `og:` URLs in `index.html` and `app/index.html`.
+After editing `specs.js` or a text file in `tools/i18n/`, run `node tools/build-site.mjs` and commit the result. A translation that fails `check.mjs` is skipped, not published.
+
+### Translations
+
+The translated country pages were translated with AI assistance and have not been reviewed by a professional translator. Each one says so at the top, in its own language and in English, links to the English page as the reference, and notes that the official government rules always take precedence. The camera app's own screens are in English. Corrections from native speakers are very welcome: edit the language's file in `tools/i18n/` and open a pull request or an issue. If the site moves to its own domain, change `SITE` at the top of that script and the canonical and `og:` URLs in `index.html` and `app/index.html`.
 
 ## Report a bug
 
