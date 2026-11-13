@@ -29,6 +29,26 @@ Rules live in [`specs.js`](specs.js), one entry per country, in millimetres. A c
 
 Not checked automatically: glasses, hats, and head coverings. The page asks the user to check those.
 
+## Confirmed accepted photos
+
+Countries where a passport office has accepted a photo made with this app. A confirmation shows the app can produce an accepted photo there; it doesn't guarantee every photo will be (see the [Disclaimer](#disclaimer)).
+
+| Country | Status | Applied | Confirmed | Notes |
+|---|---|---|---|---|
+| Australia | Not yet confirmed | | | |
+| Hong Kong | Not yet confirmed | | | |
+| Italy | Not yet confirmed | | | |
+| Japan | Not yet confirmed | | | |
+| Netherlands | Not yet confirmed | | | |
+| New Zealand | Not yet confirmed | | | |
+| Poland | Not yet confirmed | | | |
+| Singapore | Not yet confirmed | | | |
+| Taiwan | Not yet confirmed | | | |
+| United Kingdom | Not yet confirmed | | | |
+| United States | ✅ Accepted | | November 2026 | |
+
+"Applied" is how the photo was submitted (online with the digital file, or on paper with a print). Had a photo accepted? [Let us know](https://github.com/claytonkimber/passport-photo/issues/new?title=Photo%20accepted%3A%20&body=Country%3A%0AApplied%20online%20or%20on%20paper%3A%0AMonth%20it%20was%20accepted%3A%0AAnything%20else%20worth%20knowing%3A%0A%0A%28Please%20don%27t%20attach%20your%20photo%3A%20issues%20are%20public.%29) and we'll add it to the table.
+
 ## How the site is built
 
 Plain static files, served by GitHub Pages; there is no build step to deploy.
