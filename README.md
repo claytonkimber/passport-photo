@@ -4,7 +4,30 @@ A free passport photo camera that runs in the phone's browser, and installs like
 
 **Live:** https://claytonkimber.github.io/passport-photo/ (the camera itself is at [`/app/`](https://claytonkimber.github.io/passport-photo/app/))
 
+## Your passport photo, without handing over your face
+
+Search an app store for "passport photo" and you'll find apps that want an account, an email address, permission to track you, and an upload of your face to their servers, often with a paywall before you can download the result. Once your photo sits on someone else's server, what happens to it next is up to them.
+
+This app asks for one thing: your camera.
+
+| | Many app-store passport photo apps | This app |
+|---|---|---|
+| Your photo is uploaded to a company's server | Often | **Never.** Everything runs on your phone |
+| Your photo is stored | Often, on their servers | **No.** It's only saved if you save it to your phone |
+| Account, email or personal details | Often required | **None** |
+| Tracking cookies, analytics, ads | Common | **None** |
+| Pay to download your own photo | Common | **Free.** No watermark, no paywall |
+| Rules for your country | Varies | **Checked against official government websites** for every listed country |
+| Works with no internet | Rarely | **Yes**, after the first use. Try it in airplane mode |
+| Install from an app store | Required | **Not needed.** Add it to your home screen |
+
+**It works:** US passport photos made with this app have already been accepted. See [Confirmed accepted photos](#confirmed-accepted-photos).
+
+Just good old passport photos: made on your phone, built to your country's rules, and never shared with anyone unless you share them.
+
 > A free, best-effort tool provided as is, with no warranty: it can make mistakes, so check your photo before you submit it. See the [Disclaimer](#disclaimer).
+
+## What it does
 
 - Pick your passport country. Each listed country uses its own photo size, head size (and how it's measured), eye line, top margin and background color. "Other country" uses the ICAO international standard (35×45 mm, head 32–36 mm) that most passports follow, and the page says it hasn't been checked against that country's rules.
 - Live camera preview with alignment guides in the photo's real shape (head oval, eye-line band, crop box)
@@ -84,6 +107,114 @@ This app is free, has no ads, and never uploads your photo. If it saved you a tr
 <img src="paypal-qr.png" alt="PayPal QR code" width="200">
 
 The same PayPal link and QR code are in the app's **Support me** tab, next to your finished photo.
+
+## This README in two voices
+
+The same facts, written two ways, side by side. On the left, a warm, unhurried voice in the spirit of Bob Ross. On the right, [ASD-STE100 Simplified Technical English](https://www.asd-ste100.org/), the controlled language used for aircraft maintenance manuals: short sentences, one instruction per sentence, active voice and a limited vocabulary. Both follow the same plain-language rules: talk to the reader directly, use words a tired reader understands first time, and no idioms.
+
+<table>
+<tr><th width="50%">Bob Ross style</th><th width="50%">ASD-STE100 style</th></tr>
+
+<tr><td colspan="2"><b>Why this app</b></td></tr>
+<tr valign="top">
+<td>
+
+Getting a passport photo should feel easy, like a quiet afternoon by the lake. A lot of photo apps want an account, a few cookies and a copy of your face on their servers. You don't need any of that. Here, your picture stays right on your phone, where it belongs. No sign-up, no ads, no tracking. Just you, a plain wall, and a photo you can be proud of.
+
+</td>
+<td>
+
+This app makes passport photos on your phone. Many passport photo apps send your photo to their servers. These apps also use tracking cookies and ask for personal data. This app does not send your photo to a server. This app does not keep your photo. This app does not use tracking cookies. This app does not ask for your name or email address. The app is free.
+
+</td>
+</tr>
+
+<tr><td colspan="2"><b>What it does</b></td></tr>
+<tr valign="top">
+<td>
+
+Pick your country, and the camera shows you gentle guides: an oval for your head and a soft green band for your eyes. As you settle in, it checks your expression, your tilt and your light. When everything looks just right, it takes the photo for you. Then it tidies up the background, so the photo looks like it came from a booth.
+
+</td>
+<td>
+
+The app shows guides on the camera image. The guides show the correct position for your head and eyes. The app checks the size, position, expression, eyes, light and background. When all checks are correct, the app takes the photo. The app then changes the background to the color that your country requires.
+
+</td>
+</tr>
+
+<tr><td colspan="2"><b>How to use it</b></td></tr>
+<tr valign="top">
+<td>
+
+1. Find a plain, light wall and some soft light, maybe from a window.
+2. Open the app and choose your country.
+3. Ask a friend to hold the phone. It's nicer that way.
+4. Relax your face, look at the lens, and let the app take the photo.
+5. Save your photo, or the print sheet if you need paper.
+
+</td>
+<td>
+
+1. Stand 60 cm in front of a plain, light wall.
+2. Face a window or a soft light.
+3. Remove your glasses, hat and headphones.
+4. Open the app.
+5. Select your country.
+6. Look at the camera lens. Keep your mouth closed.
+7. Wait until the app takes the photo.
+8. Examine the photo.
+9. Save the photo or the print sheet.
+
+**NOTE:** Use the back camera if another person can hold the phone.
+
+</td>
+</tr>
+
+<tr><td colspan="2"><b>Your privacy</b></td></tr>
+<tr valign="top">
+<td>
+
+Your face is yours. The app does all its work right there on your phone. Nothing gets uploaded, nothing gets kept, and nobody's watching. After the first time, it even works in airplane mode, so you can see for yourself.
+
+</td>
+<td>
+
+The app does all processing on your phone. The app does not send your photo to the internet. The app does not keep a copy of your photo. The app does not use cookies. After the first use, the app operates without an internet connection.
+
+</td>
+</tr>
+
+<tr><td colspan="2"><b>Getting it printed</b></td></tr>
+<tr valign="top">
+<td>
+
+Need a paper copy? The Print it tab shows your country's rules, a sheet sized for the printers near you, and a few friendly places to print it. We don't earn anything from those links. We just want you to get your photo.
+
+</td>
+<td>
+
+If your application needs a printed photo, open the Print it tab. The tab shows the print rules for your country. Save the print sheet. Print the sheet at 100% size. Measure one photo. Make sure that the photo has the correct size.
+
+**NOTE:** The site gets no money from the print links.
+
+</td>
+</tr>
+
+<tr><td colspan="2"><b>The fine print</b></td></tr>
+<tr valign="top">
+<td>
+
+We've worked hard to get this right, but it's a free tool, and every tool makes a mistake now and then. Take a good look at your photo before you send it in. The passport office always has the final say.
+
+</td>
+<td>
+
+**CAUTION:** The app can make errors. Examine your photo before you send it. The passport office makes the final decision. The author gives no warranty. Refer to the Disclaimer.
+
+</td>
+</tr>
+</table>
 
 ## License
 
