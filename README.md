@@ -12,7 +12,8 @@ A free passport photo camera that runs in the phone's browser, and installs like
 - Light button: the back camera's LED torch, or a white screen for the front camera
 - Auto-capture with a 3-2-1 countdown once every check passes
 - After capture: crops to the country's geometry, shifts the wall to the required background color the way a photo booth's backdrop looks (edge-aware, so hair and ears aren't cut), then runs the face checks again on the final image
-- Saves a JPEG at 600 dpi (or the country's online minimum, if larger), plus a 4×6 in / 10×15 cm print sheet with as many photos as fit
+- Saves a JPEG at 600 dpi (or the country's online minimum, if larger)
+- **Print it** tab: whether you need a print at all, the country's rules for printed photos (for example Australia's dye-sublimation rule or Singapore's matte finish), print sheets with as many true-size photos as fit (4×6 in / 10×15 cm, plus L size for Japanese convenience-store printers), and places to print. These links earn nothing.
 - Installable web app (PWA): add it to the home screen from Chrome on Android or Safari on iPhone. After the first use it works offline, because the face-detection library and models are cached on the phone.
 
 Runs fully on-device with [MediaPipe Tasks Vision](https://ai.google.dev/edge/mediapipe/solutions/vision/face_landmarker) (face landmarks and blendshapes, selfie multiclass segmentation). No photo leaves the phone.
@@ -40,6 +41,7 @@ Plain static files, served by GitHub Pages; there is no build step to deploy.
 | `<country>/<lang>/` | AI-assisted translation of that page for countries that search in another language: [`japan/ja/`](japan/ja/), [`italy/it/`](italy/it/), [`netherlands/nl/`](netherlands/nl/), [`poland/pl/`](poland/pl/), [`taiwan/zh-tw/`](taiwan/zh-tw/), [`hong-kong/zh-hk/`](hong-kong/zh-hk/) |
 | `tools/i18n/` | Page text: `en.json` plus one file per translation, and `check.mjs`, which confirms a translation matches the English keys and placeholders |
 | `specs.js`, `evidence.json` | Country rules and the official wording behind them |
+| `print.js` | Per-country print guidance and places to print, shown in the app's Print it tab |
 | `manifest.webmanifest`, `sw.js`, `install.js`, `icons/` | Installable app: manifest, offline cache, install buttons, icons |
 | `tools/build-site.mjs` | Generates the country pages, the landing page's country list and `sitemap.xml` |
 

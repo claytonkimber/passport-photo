@@ -109,6 +109,17 @@
   a.btn { display: block; text-align: center; text-decoration: none; border-radius: 12px; padding: 14px 18px;
     background: var(--panel); color: var(--text); }
   a.btn.primary { background: var(--accent); color: #fff; font-weight: 600; }
+  #panelPrint h2 { font-size: 20px; margin: 6px 0 4px; }
+  #panelPrint h3 { font-size: 16px; margin: 18px 0 6px; }
+  #panelPrint p, #panelPrint li { color: var(--muted); }
+  #panelPrint ul { padding-left: 20px; margin: 0; }
+  #panelPrint li { margin: 6px 0; }
+  #panelPrint ul.places { list-style: none; padding: 0; display: grid; gap: 10px; }
+  ul.places li { background: var(--panel); border-radius: 12px; padding: 12px 14px; margin: 0; }
+  ul.places a { color: var(--text); font-weight: 600; }
+  ul.places .kind { display: inline-block; margin-left: 8px; font-size: 12px; padding: 2px 8px; border-radius: 99px;
+    border: 1px solid #ffffff33; color: var(--muted); }
+  ul.places p { margin: 4px 0 0; font-size: 14px; }
   #panelSupport h2 { font-size: 20px; margin: 6px 0 8px; }
   #panelSupport p { color: var(--muted); margin: 0 0 6px; }
   .qr { display: block; width: 220px; height: 220px; margin: 8px auto 0; background: #fff; border-radius: 12px; padding: 6px; }
@@ -212,6 +223,7 @@
   <div class="wrap">
     <div class="tabs" role="tablist" aria-label="Result">
       <button role="tab" id="tabPhoto" aria-controls="panelPhoto" aria-selected="true">Your photo</button>
+      <button role="tab" id="tabPrint" aria-controls="panelPrint" aria-selected="false" tabindex="-1">Print it</button>
       <button role="tab" id="tabSupport" aria-controls="panelSupport" aria-selected="false" tabindex="-1">Support me</button>
     </div>
     <div id="panelPhoto" role="tabpanel" aria-labelledby="tabPhoto">
@@ -225,13 +237,13 @@
     <div class="btns">
       <button id="saveBtn" class="primary">Save photo to phone</button>
       <button id="shareBtn">Share…</button>
-      <button id="sheetBtn">Save 4×6 in (10×15 cm) print sheet</button>
       <button id="retakeBtn">Retake</button>
       <a class="btn bug-link" href="https://github.com/claytonkimber/passport-photo/issues/new" target="_blank" rel="noopener">Report a problem with this photo</a>
     </div>
-    <p class="fine">Use the single photo for online applications. Print the 4×6 in (10×15 cm) sheet at 100% (no cropping or "fit") at any photo kiosk, then cut along the grey lines. The checks can be wrong, so look over the photo yourself before you submit it.</p>
+    <p class="fine">Use the single photo for online applications. For a printed photo, see the <b>Print it</b> tab. The checks can be wrong, so look over the photo yourself before you submit it.</p>
     <details class="disclaimer"></details>
     </div>
+    <div id="panelPrint" role="tabpanel" aria-labelledby="tabPrint" hidden></div>
     <div id="panelSupport" role="tabpanel" aria-labelledby="tabSupport" hidden>
       <h2>Support this app</h2>
       <p>This app is free, has no ads, and never uploads your photo. If it saved you a trip to a photo shop, you can chip in.</p>
@@ -249,6 +261,7 @@ import { FilesetResolver, FaceLandmarker, ImageSegmenter }
   from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs";
 // Bump ?v= whenever specs.js changes shape, so a fresh page never pairs with a cached old data file.
 import { ICAO, SPECS } from "../specs.js?v=3";
+import { PRINT } from "../print.js?v=1";
 
 // Background colors the output can be lifted to.
 const BG_RGB = {
@@ -809,14 +822,49 @@ async function showResult(out, checks) {
   $("verdict").className = allOk ? "ok" : "bad";
   $("resultChecks").innerHTML = checks.map(c => `<li class="${c.ok ? "ok" : "bad"}"><span>${c.label}</span><span class="v">${c.val}</span></li>`).join("");
   $("shareBtn").style.display = navigator.canShare?.({ files: [new File([resultBlob], "p.jpg", { type: "image/jpeg" })] }) ? "" : "none";
-  $("sheetBtn").textContent = `Save 4×6 in (10×15 cm) print sheet (${sheetLayout().count} photos)`;
   lastVerify = checks;
   drawResultGuides();
+  renderPrint();
   selectTab("tabPhoto");
   show("result");
 }
 
-const TABS = [["tabPhoto", "panelPhoto"], ["tabSupport", "panelSupport"]];
+// "Print it" tab: whether a print is needed at all, the country's print rules, sheets, and places to print.
+function renderPrint() {
+  const P = PRINT[SPEC.code] || PRINT.ICAO;
+  const el = (tag, props, ...kids) => { const e = Object.assign(document.createElement(tag), props); e.append(...kids); return e; };
+  const kinds = { pickup: "Pick up in store", mail: "Printed and mailed", machine: "Self-service machine" };
+  const sheetButtons = P.sheets.map((k, i) => {
+    const b = el("button", { className: i ? "" : "primary", textContent: `Save ${SHEETS[k].label} print sheet (${sheetLayout(k).count} photos)` });
+    b.onclick = async () => download(await printSheet(k), fileName(`print-sheet-${k}`));
+    return b;
+  });
+  const tips = [
+    `Print at 100% (actual size). Turn off "fit", "fill", cropping and borders.`,
+    ...P.paper,
+    `Measure one photo with a ruler: it should be exactly ${sizeLabel(SPEC)}. If it isn't, the printer resized it.`,
+    "Cut along the grey lines. If a store won't print a passport-style photo, try another.",
+  ];
+  $("panelPrint").replaceChildren(
+    el("h2", { textContent: "Getting it printed" }),
+    el("h3", { textContent: "Do you need a print?" }),
+    el("p", { textContent: P.digital }),
+    el("h3", { textContent: "Print sheet" }),
+    el("div", { className: "btns" }, ...sheetButtons),
+    el("h3", { textContent: "Printing it right" }),
+    el("ul", {}, ...tips.map(t => el("li", { textContent: t }))),
+    el("h3", { textContent: "Where to print" }),
+    P.places.length
+      ? el("ul", { className: "places" }, ...P.places.map(p => el("li", {},
+          el("a", { href: p.url, target: "_blank", rel: "noopener noreferrer", textContent: p.name }),
+          el("span", { className: "kind", textContent: kinds[p.kind] }),
+          el("p", { textContent: p.note }))))
+      : el("p", { textContent: `Any photo shop or kiosk that prints ${SHEETS["4x6"].label} photos at actual size.` }),
+    el("p", { className: "fine", textContent: "We don't earn anything from these links. Prices and services change, so check with the store before you go." }),
+  );
+}
+
+const TABS = [["tabPhoto", "panelPhoto"], ["tabPrint", "panelPrint"], ["tabSupport", "panelSupport"]];
 function selectTab(id) {
   for (const [tab, panel] of TABS) {
     const on = tab === id;
@@ -828,8 +876,9 @@ for (const [tab] of TABS) {
   $(tab).onclick = () => selectTab(tab);
   $(tab).onkeydown = e => {                                           // arrow keys move between tabs
     if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
-    const other = TABS.find(([t]) => t !== tab)[0];
-    selectTab(other); $(other).focus();
+    const i = TABS.findIndex(([t]) => t === tab), step = e.key === "ArrowRight" ? 1 : TABS.length - 1;
+    const next = TABS[(i + step) % TABS.length][0];
+    selectTab(next); $(next).focus();
   };
 }
 
@@ -863,14 +912,23 @@ function download(blob, name) {
 }
 const stamp = () => new Date().toISOString().slice(0, 19).replace(/[T:]/g, "-");
 
-// 4x6 in (≈10x15 cm) landscape sheet at 300 dpi, photos at true size with cut lines.
-function sheetLayout() {
-  const SW = 1800, SH = 1200, gap = 20, pw = Math.round(SPEC.w_mm / 25.4 * 300), ph = Math.round(SPEC.h_mm / 25.4 * 300);
-  const cols = Math.max(1, Math.floor((SW - gap) / (pw + gap))), rows = Math.max(1, Math.floor((SH - gap - 50) / (ph + gap)));
-  return { SW, SH, gap, pw, ph, cols, rows, count: cols * rows };
+// Print sheet paper sizes in pixels at 300 dpi. L size is what Japanese convenience-store printers use.
+const SHEETS = {
+  "4x6": { label: "4×6 in (10×15 cm)", w: 1800, h: 1200 },
+  "L": { label: "L size (89×127 mm)", w: 1500, h: 1051 },
+};
+// Photos at true size with cut lines, in whichever orientation fits more of them.
+function sheetLayout(key) {
+  const S = SHEETS[key], gap = 20, pw = Math.round(SPEC.w_mm / 25.4 * 300), ph = Math.round(SPEC.h_mm / 25.4 * 300);
+  const fit = (SW, SH) => {
+    const cols = Math.max(1, Math.floor((SW - gap) / (pw + gap))), rows = Math.max(1, Math.floor((SH - gap - 50) / (ph + gap)));
+    return { SW, SH, gap, pw, ph, cols, rows, count: cols * rows };
+  };
+  const wide = fit(S.w, S.h), tall = fit(S.h, S.w);
+  return tall.count > wide.count ? tall : wide;
 }
-async function printSheet() {
-  const L = sheetLayout(), s = document.createElement("canvas"); s.width = L.SW; s.height = L.SH;
+async function printSheet(key) {
+  const L = sheetLayout(key), s = document.createElement("canvas"); s.width = L.SW; s.height = L.SH;
   const c = s.getContext("2d"); c.fillStyle = "#fff"; c.fillRect(0, 0, L.SW, L.SH);
   const x0 = (L.SW - L.cols * L.pw - (L.cols - 1) * L.gap) / 2, y0 = (L.SH - L.rows * L.ph - (L.rows - 1) * L.gap) / 2 + 20;
   for (let i = 0; i < L.cols; i++) for (let j = 0; j < L.rows; j++) {
@@ -878,8 +936,11 @@ async function printSheet() {
     c.drawImage(window._outCanvas, x, y, L.pw, L.ph);
     c.strokeStyle = "#bbb"; c.lineWidth = 1; c.strokeRect(x - 0.5, y - 0.5, L.pw + 1, L.ph + 1);
   }
-  c.fillStyle = "#888"; c.font = "24px sans-serif";
-  c.fillText(`${SPEC.name} passport photo, ${sizeLabel(SPEC)}. Print at 4×6 in / 10×15 cm, 100% scale. Cut on the grey lines.`, 30, 36);
+  const text = `${SPEC.name} passport photo, ${sizeLabel(SPEC)}. Print at ${SHEETS[key].label}, 100% scale. Cut on the grey lines.`;
+  let px = 24;
+  c.fillStyle = "#888"; c.font = `${px}px sans-serif`;
+  while (c.measureText(text).width > L.SW - 60 && px > 14) c.font = `${--px}px sans-serif`;
+  c.fillText(text, 30, 36);
   return new Promise(res => s.toBlob(res, "image/jpeg", 0.95));
 }
 
@@ -920,7 +981,6 @@ $("shareBtn").onclick = async () => {
   const f = new File([resultBlob], fileName("photo"), { type: "image/jpeg" });
   try { await navigator.share({ files: [f], title: "Passport photo" }); } catch (e) { if (e.name !== "AbortError") alert(e.message); }
 };
-$("sheetBtn").onclick = async () => download(await printSheet(), fileName("print-sheet"));
 
 for (const d of document.querySelectorAll("details.disclaimer")) d.append($("disclaimerTpl").content.cloneNode(true));
 

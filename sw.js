@@ -2,7 +2,7 @@
 // offline fallback); the pinned face-detection library and models are cache-first, so after the app has
 // run once it works with no connection at all.
 const SHELL = "shell-v1", LIBS = "libs-v1";
-const PRECACHE = ["./", "./app/", "./specs.js?v=3", "./install.js", "./site.css", "./manifest.webmanifest",
+const PRECACHE = ["./", "./app/", "./specs.js?v=3", "./print.js?v=1", "./install.js", "./site.css", "./manifest.webmanifest",
   "./icons/icon.svg", "./icons/icon-192.png", "./icons/icon-512.png", "./paypal-qr.png"];
 const LIB_HOSTS = ["cdn.jsdelivr.net", "storage.googleapis.com"];
 
