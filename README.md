@@ -1,37 +1,60 @@
 # Passport Photo
 
-A free passport photo camera that runs in the phone's browser, and installs like an app on Android and iPhone without an app store.
+A free passport photo camera that lives in your phone's browser. You can keep it on your home screen like any other app, and you never need an app store.
 
-**Live:** https://claytonkimber.github.io/passport-photo/ (the camera itself is at [`/app/`](https://claytonkimber.github.io/passport-photo/app/))
+**Try it:** https://claytonkimber.github.io/passport-photo/ (the camera itself is at [`/app/`](https://claytonkimber.github.io/passport-photo/app/))
 
-> A free, best-effort tool provided as is, with no warranty: it can make mistakes, so check your photo before you submit it. See the [Disclaimer](#disclaimer).
+## Your passport photo, and your face stays yours
 
-- Pick your passport country. Each listed country uses its own photo size, head size (and how it's measured), eye line, top margin and background color. "Other country" uses the ICAO international standard (35×45 mm, head 32–36 mm) that most passports follow, and the page says it hasn't been checked against that country's rules.
-- Live camera preview with alignment guides in the photo's real shape (head oval, eye-line band, crop box)
-- Live checks: one face, size, centering, head tilt, facing the camera, no smile, mouth closed, eyes open, looking at the lens, plain and light background, even lighting, exposure
-- Light button: the back camera's LED torch, or a white screen for the front camera
-- Auto-capture with a 3-2-1 countdown once every check passes
-- After capture: crops to the country's geometry, shifts the wall to the required background color the way a photo booth's backdrop looks (edge-aware, so hair and ears aren't cut), then runs the face checks again on the final image
-- Saves a JPEG at 600 dpi (or the country's online minimum, if larger)
-- **Print it** tab: whether you need a print at all, the country's rules for printed photos (for example Australia's dye-sublimation rule or Singapore's matte finish), print sheets with as many true-size photos as fit (4×6 in / 10×15 cm, plus L size for Japanese convenience-store printers), and places to print. These links earn nothing.
-- Installable web app (PWA): add it to the home screen from Chrome on Android or Safari on iPhone. After the first use it works offline, because the face-detection library and models are cached on the phone.
+Search an app store for "passport photo" and you'll find plenty of apps that want a little something from you first: an account, an email address, permission to follow you around, and a copy of your face on their servers. Many want a payment before you can download your own picture. And once your photo is sitting on someone else's computer, what happens to it next is up to them.
 
-Runs fully on-device with [MediaPipe Tasks Vision](https://ai.google.dev/edge/mediapipe/solutions/vision/face_landmarker) (face landmarks and blendshapes, selfie multiclass segmentation). No photo leaves the phone.
+We do it differently. This app asks for just one thing: your camera.
+
+| | Many app-store passport photo apps | This app |
+|---|---|---|
+| Your photo goes to a company's server | Often | **Never.** Everything happens right on your phone |
+| Your photo is kept | Often, on their servers | **No.** It's only saved if you save it |
+| Account, email or personal details | Often required | **None at all** |
+| Tracking cookies, analytics, ads | Common | **None** |
+| Paying to download your own photo | Common | **Free.** No watermark, no paywall |
+| Rules for your country | Varies | **Checked against official government websites** for every country listed |
+| Works without internet | Rarely | **Yes**, after the first use. Try it in airplane mode |
+| Needs an app store | Yes | **No.** Just add it to your home screen |
+
+**And it works.** US passport photos made with this app have already been accepted. You can see the list in [Confirmed accepted photos](#confirmed-accepted-photos).
+
+Just good old passport photos: made on your phone, built to your country's rules, and shared with nobody unless you choose to share them.
+
+> This is a free tool made with care, but it can make mistakes. Take a good look at your photo before you send it in. The [Disclaimer](#disclaimer) has the details.
+
+## What the app does
+
+- **Country selection:** Each country has its own photo size, head size, eye line, space above the head and background color. The app also uses the method that each country uses to measure the head. For other countries, select "Other country". This option uses the ICAO international standard (35×45 mm photo, 32–36 mm head). Most passports use this standard. The app tells you that this standard is not checked against the rules of your country.
+- **Guides:** The camera image shows the shape of the photo, an oval for the head and a band for the eyes.
+- **Live checks:** The app checks the position of the face: one face only, size, center position, head tilt and face direction. The app also checks the expression and the eyes: no smile, closed mouth, open eyes and eyes on the lens. The app also checks the background and the light: a plain light background, equal light and correct exposure.
+- **Light:** The Light button turns on the LED of the back camera. With the front camera, the screen becomes white.
+- **Automatic photo:** When all checks are correct, a 3-2-1 countdown starts. Then the app takes the photo.
+- **Processing:** The app cuts the photo to the dimensions of your country. The app changes the wall to the background color that your country requires. Hair and ears stay in the photo. Then the app does the face checks again on the final photo.
+- **File:** The app saves a JPEG file at 600 dpi. If your country requires more pixels for online applications, the file is larger.
+- **Print it tab:** This tab tells you if you must have a print. It shows the rules for printed photos in your country, for example dye-sublimation prints in Australia and matte prints in Singapore. It makes print sheets with photos at the correct size: 4×6 in (10×15 cm), and L size (89×127 mm) for convenience-store printers in Japan. It also shows places that print photos. The site gets no money from these links.
+- **Installation:** Add the app to your home screen from Chrome on Android or from Safari on iPhone. After the first use, the app operates without an internet connection. The phone keeps the face-detection library and models.
+
+The app uses [MediaPipe Tasks Vision](https://ai.google.dev/edge/mediapipe/solutions/vision/face_landmarker) (face landmarks and blendshapes, selfie multiclass segmentation) on your phone. Your photo does not go to the internet.
 
 ## Country rules
 
-Rules live in [`specs.js`](specs.js), one entry per country, in millimetres. A country is listed only when:
+The file [`specs.js`](specs.js) contains the rules for each country, in millimeters. A country is in the list only when these two conditions are true:
 
-- every value was confirmed on an official government page (passport authority, ministry, or the country's own embassy), and
-- the applicant supplies the photo and may take it themselves. Countries that photograph applicants at the office, or require a certified photographer or studio, are left out because this app can't help there.
+- An official government page shows each value. Official pages are pages of the passport office, the ministry or the embassy of the country.
+- The applicant supplies the photo and can take the photo. Some countries take the photo at their office, or require a certified photographer or studio. This app cannot help in these countries. Thus, these countries are not in the list.
 
-[`evidence.json`](evidence.json) has the official page and the exact quoted wording behind each value. Corrections are welcome: edit the entry and cite the official page.
+The file [`evidence.json`](evidence.json) shows the official page and the exact text for each value. To correct a value, edit the entry and give the address of the official page.
 
-Not checked automatically: glasses, hats, and head coverings. The page asks the user to check those.
+**NOTE:** The app does not check for glasses, hats or head coverings. The app tells you to remove them.
 
 ## Confirmed accepted photos
 
-Countries where a passport office has accepted a photo made with this app. A confirmation shows the app can produce an accepted photo there; it doesn't guarantee every photo will be (see the [Disclaimer](#disclaimer)).
+This table shows the countries where a passport office accepted a photo from this app. An accepted photo shows that the app can make a correct photo for that country. It does not guarantee that each photo will be accepted. Refer to the [Disclaimer](#disclaimer).
 
 | Country | Status | Applied | Confirmed | Notes |
 |---|---|---|---|---|
@@ -47,47 +70,60 @@ Countries where a passport office has accepted a photo made with this app. A con
 | United Kingdom | Not yet confirmed | | | |
 | United States | ✅ Accepted | | November 2026 | |
 
-"Applied" is how the photo was submitted (online with the digital file, or on paper with a print). Had a photo accepted? [Let us know](https://github.com/claytonkimber/passport-photo/issues/new?title=Photo%20accepted%3A%20&body=Country%3A%0AApplied%20online%20or%20on%20paper%3A%0AMonth%20it%20was%20accepted%3A%0AAnything%20else%20worth%20knowing%3A%0A%0A%28Please%20don%27t%20attach%20your%20photo%3A%20issues%20are%20public.%29) and we'll add it to the table.
+The "Applied" column shows how the applicant sent the photo: online with the digital file, or on paper with a print. If a passport office accepted your photo, [tell us](https://github.com/claytonkimber/passport-photo/issues/new?title=Photo%20accepted%3A%20&body=Country%3A%0AApplied%20online%20or%20on%20paper%3A%0AMonth%20it%20was%20accepted%3A%0AAnything%20else%20worth%20knowing%3A%0A%0A%28Please%20don%27t%20attach%20your%20photo%3A%20issues%20are%20public.%29). We will add it to the table.
 
 ## How the site is built
 
-Plain static files, served by GitHub Pages; there is no build step to deploy.
+The site has only static files. GitHub Pages supplies the files. You do not need a build step to publish.
 
-| Path | What it is |
+| Path | Contents |
 |---|---|
-| `index.html` | Landing page (search-friendly description, install instructions, FAQ, disclaimer) |
+| `index.html` | Landing page: description for search engines, installation instructions, questions and answers, disclaimer |
 | `app/` | The camera app |
-| `<country>/` | One page per supported country, e.g. [`united-kingdom/`](united-kingdom/) |
-| `<country>/<lang>/` | AI-assisted translation of that page for countries that search in another language: [`japan/ja/`](japan/ja/), [`italy/it/`](italy/it/), [`netherlands/nl/`](netherlands/nl/), [`poland/pl/`](poland/pl/), [`taiwan/zh-tw/`](taiwan/zh-tw/), [`hong-kong/zh-hk/`](hong-kong/zh-hk/) |
-| `tools/i18n/` | Page text: `en.json` plus one file per translation, and `check.mjs`, which confirms a translation matches the English keys and placeholders |
-| `specs.js`, `evidence.json` | Country rules and the official wording behind them |
-| `print.js` | Per-country print guidance and places to print, shown in the app's Print it tab |
-| `manifest.webmanifest`, `sw.js`, `install.js`, `icons/` | Installable app: manifest, offline cache, install buttons, icons |
-| `tools/build-site.mjs` | Generates the country pages, the landing page's country list and `sitemap.xml` |
+| `<country>/` | One page for each country in the list, for example [`united-kingdom/`](united-kingdom/) |
+| `<country>/<lang>/` | AI-assisted translation of the country page, for countries where people search in a different language: [`japan/ja/`](japan/ja/), [`italy/it/`](italy/it/), [`netherlands/nl/`](netherlands/nl/), [`poland/pl/`](poland/pl/), [`taiwan/zh-tw/`](taiwan/zh-tw/), [`hong-kong/zh-hk/`](hong-kong/zh-hk/) |
+| `tools/i18n/` | Text of the pages: `en.json`, one file for each translation, and `check.mjs`. `check.mjs` makes sure that each translation has the same keys and placeholders as the English file |
+| `specs.js`, `evidence.json` | Rules for each country, and the official text for each rule |
+| `print.js` | Print instructions and print locations for each country, for the Print it tab of the app |
+| `manifest.webmanifest`, `sw.js`, `install.js`, `icons/` | Files for installation: manifest, offline cache, install buttons, icons |
+| `tools/build-site.mjs` | Makes the country pages, the country list on the landing page and `sitemap.xml` |
 
-After editing `specs.js` or a text file in `tools/i18n/`, run `node tools/build-site.mjs` and commit the result. A translation that fails `check.mjs` is skipped, not published.
+To change the rules or the text of the pages:
+
+1. Edit `specs.js` or a text file in `tools/i18n/`.
+2. Run `node tools/build-site.mjs`.
+3. Commit the result.
+
+**NOTE:** If a translation does not pass `check.mjs`, the build does not publish it.
+
+If the site moves to a different domain, change `SITE` at the top of `tools/build-site.mjs`. Also change the canonical and `og:` addresses in `index.html` and `app/index.html`.
 
 ### Translations
 
-The translated country pages were translated with AI assistance and have not been reviewed by a professional translator. Each one says so at the top, in its own language and in English, links to the English page as the reference, and notes that the official government rules always take precedence. The camera app's own screens are in English. Corrections from native speakers are very welcome: edit the language's file in `tools/i18n/` and open a pull request or an issue. If the site moves to its own domain, change `SITE` at the top of that script and the canonical and `og:` URLs in `index.html` and `app/index.html`.
+AI helped to translate the country pages. A professional translator did not examine the translations. Each translated page shows this information at the top, in its language and in English. Each translated page has a link to the English page. The English page is the reference. The official government rules always have priority. The screens of the camera app are in English.
+
+If you speak one of these languages, you can correct the translation. Edit the file for the language in `tools/i18n/`. Then open a pull request or an issue.
 
 ## Report a bug
 
-Found a problem? [File a bug](https://github.com/claytonkimber/passport-photo/issues/new) (needs a free GitHub account). The **Report a bug** buttons in the app open the same form pre-filled with your country, browser and the last photo's check results. Issues are public, so please don't attach photos of yourself unless you're happy for anyone to see them.
+To report a problem, [file a bug](https://github.com/claytonkimber/passport-photo/issues/new). You must have a free GitHub account. The **Report a bug** buttons in the app open the same form. The form shows your country, your browser and the check results of the last photo. Issues are public.
+
+**CAUTION:** Do not attach photos of yourself to an issue unless you agree that all persons can see them.
 
 ## Support
 
-This app is free, has no ads, and never uploads your photo. If it saved you a trip to a photo shop, you can support it:
+This app is free. It has no advertisements, and it does not send your photo to the internet. To support the app, use one of these:
 
-[Donate with PayPal or card](https://www.paypal.com/donate/?hosted_button_id=WKTVYE2X9UX4G), or scan with the PayPal app:
+- [Donate with PayPal or card](https://www.paypal.com/donate/?hosted_button_id=WKTVYE2X9UX4G).
+- Scan this QR code with the PayPal app:
 
 <img src="paypal-qr.png" alt="PayPal QR code" width="200">
 
-The same PayPal link and QR code are in the app's **Support me** tab, next to your finished photo.
+The **Support me** tab of the app shows the same link and QR code.
 
 ## License
 
-[MIT](LICENSE): free to use, copy, modify and share, provided the copyright and license notice stay with it. The code is provided as is, without warranty of any kind.
+[MIT](LICENSE): You can use, copy, change and share the code. You must keep the copyright notice and the license notice with it. The code is supplied as is, without warranty.
 
 ## Disclaimer
 
