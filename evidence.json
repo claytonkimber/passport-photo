@@ -104,6 +104,88 @@
   ],
   "open_questions": "ImmD does not explicitly mention phone selfies; self_photo=true rests on its acceptance of uploaded digital-camera images. Kiosk photo service is optional, so applicants otherwise supply the photo."
  },
+ "IE": {
+  "name": "Ireland",
+  "source": "https://www.ireland.ie/en/dfa/passports/photo-guidelines/",
+  "evidence": [
+   {
+    "fields": [
+     "w_mm",
+     "h_mm"
+    ],
+    "url": "https://www.ireland.ie/en/dfa/passports/photo-guidelines/",
+    "quote": "Minimum: 35mm x 45mm Maximum: 38mm x 50mm"
+   },
+   {
+    "fields": [
+     "head_min_mm",
+     "head_max_mm",
+     "top_min_mm",
+     "top_max_mm",
+     "head_measure"
+    ],
+    "url": "https://www.ireland.ie/en/dfa/passports/photo-guidelines/",
+    "quote": "The photo must capture your image from head to mid torso. Please ensure there is visible space between your head and shoulders and the edge of your photo."
+   },
+   {
+    "fields": [
+     "head_min_mm",
+     "head_max_mm",
+     "top_min_mm",
+     "top_max_mm"
+    ],
+    "url": "https://www.ireland.ie/en/dfa/passports/photo-guidelines/",
+    "quote": "Measured, not quoted: in the 8 photos marked 'Good Photo' or 'Acceptable' on the DFA page, chin to top of hair is 39-57% of the photo height (17.5-25.6 mm on a 45 mm photo) and the space above the hair is 6-16% (2.7-7.2 mm). The 'Too close in' example crops the top of the head.",
+    "images": [
+     "https://assets.ireland.ie/images/Photo-guidelines-4-EN.width-1000.jpg",
+     "https://assets.ireland.ie/images/Photo-guidelines-1---EN.width-1000.jpg",
+     "https://assets.ireland.ie/images/Photo-guidelines-2-EN.width-1000.jpg",
+     "https://assets.ireland.ie/images/Photo-guidelines-3-EN.width-1000.jpg",
+     "https://assets.ireland.ie/images/Photo-guidelines-5-EN.width-1000.jpg",
+     "https://assets.ireland.ie/images/Photo-guidelines-6-EN.width-1000.jpg",
+     "https://assets.ireland.ie/images/Photo-guidelines-7-EN.width-1000.jpg",
+     "https://assets.ireland.ie/images/Photo-guidelines-8-EN.width-1000.jpg"
+    ]
+   },
+   {
+    "fields": [
+     "bg"
+    ],
+    "url": "https://www.ireland.ie/en/dfa/passports/photo-guidelines/",
+    "quote": "You need to stand in front of a completely plain, light grey, white or cream background. Please ensure that the background creates enough contrast."
+   },
+   {
+    "fields": [
+     "digital_px"
+    ],
+    "url": "https://www.ireland.ie/en/dfa/passports/photo-guidelines/",
+    "quote": "Not be less than 715 pixels wide and 951 pixels in height."
+   },
+   {
+    "fields": [
+     "glasses_allowed"
+    ],
+    "url": "https://www.ireland.ie/en/dfa/passports/photo-guidelines/",
+    "quote": "You can wear glasses. The frame must not cover any part of your eyes. There must be no glare on the lenses. Dark glasses are not permitted."
+   },
+   {
+    "fields": [
+     "self_photo_accepted",
+     "taken_at_office"
+    ],
+    "url": "https://www.ireland.ie/en/dfa/passports/photo-guidelines/",
+    "quote": "You can get someone to take a photo a home using a digital camera or smartphone/tablet."
+   },
+   {
+    "fields": [
+     "self_photo_accepted"
+    ],
+    "url": "https://www.ireland.ie/en/dfa/passports/photo-guidelines/",
+    "quote": "No. If using a smartphone/tablet to capture your photo, ensure that someone else takes the photo for you."
+   }
+  ],
+  "open_questions": "The Passport Service states no head size or top margin in mm or percent, only 'head to mid torso' with visible space around head and shoulders. head_* and top_* come from measuring the page's own acceptable example photos, so they describe what the Passport Service shows as good rather than a stated limit. Third-party sites quote 32-36 mm (the ICAO figure); no official Irish source for that was found, and the official examples are framed much looser."
+ },
  "IT": {
   "name": "Italy",
   "source": "https://www.poliziadistato.it/articolo/10301",

@@ -27,6 +27,20 @@ export const PRINT = {
       { name: "Boots Photo", url: "https://www.boots.com/photo", kind: "pickup", note: "Collection in about an hour at larger stores." },
     ],
   },
+  IE: {
+    digital: "Applying online? You upload the digital photo, so you don't need a print. Paper application forms need 4 identical printed photos.",
+    paper: [
+      "Print on photo-quality paper at a high resolution. The back of each photo must be white and unglazed.",
+      "Photos can be 35×45 mm up to 38×50 mm. Black-and-white prints are recommended because the passport shows the photo in black and white, but colour is accepted.",
+      "Your witness writes the form number on the back of two of the four photos, then signs and stamps them.",
+    ],
+    sheets: ["4x6"],
+    places: [
+      { name: "Boots Photo Ireland", url: "https://www.bootsphoto.ie/", kind: "machine", note: "Print 6×4 photos in store at a CEWE Photostation in selected Boots stores." },
+      { name: "Snapfish Ireland", url: "https://www.snapfish.ie/", kind: "mail", note: "Printed and delivered." },
+      { name: "Photobox Ireland", url: "https://www.photobox.ie/", kind: "mail", note: "Printed and delivered." },
+    ],
+  },
   AU: {
     digital: "Australian passport applications usually need printed photos.",
     paper: [

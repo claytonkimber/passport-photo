@@ -15,7 +15,7 @@ const { SPECS } = await import(pathToFileURL(path.join(ROOT, "specs.js")).href);
 
 // Countries whose people mostly search in another language get a translated page: text table per country.
 const TRANSLATIONS = { JP: ["ja"], IT: ["it"], NL: ["nl"], PL: ["pl"], TW: ["zh-tw"], HK: ["zh-hk"] };
-const SHORT = { US: "US", GB: "UK" };
+const SHORT = { US: "US", GB: "UK", IE: "Irish" };
 
 const readTable = f => JSON.parse(fs.readFileSync(path.join(I18N, `${f}.json`), "utf8"));
 const EN = readTable("en");
@@ -166,6 +166,7 @@ ${tips.map(t => `        <li>${esc(t)}</li>`).join("\n")}
 
 // Remove generated folders that are no longer wanted (only ones this script made).
 function prune(dir, keep) {
+  if (!fs.existsSync(dir)) return;   // a newly added country has no folder yet
   for (const d of fs.readdirSync(dir, { withFileTypes: true })) {
     const page = path.join(dir, d.name, "index.html");
     if (d.isDirectory() && !keep.has(d.name) && fs.existsSync(page) && fs.readFileSync(page, "utf8").includes(MARK)) {

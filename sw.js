@@ -1,8 +1,8 @@
 // Offline support. The site's own files are network-first (updates show up at once, the cache is the
 // offline fallback); the pinned face-detection library and models are cache-first, so after the app has
 // run once it works with no connection at all.
-const SHELL = "shell-v1", LIBS = "libs-v1";
-const PRECACHE = ["./", "./app/", "./specs.js?v=3", "./print.js?v=1", "./install.js", "./site.css", "./manifest.webmanifest",
+const SHELL = "shell-v2", LIBS = "libs-v1";
+const PRECACHE = ["./", "./app/", "./specs.js?v=4", "./print.js?v=2", "./install.js", "./site.css", "./manifest.webmanifest",
   "./icons/icon.svg", "./icons/icon-192.png", "./icons/icon-512.png", "./paypal-qr.png"];
 const LIB_HOSTS = ["cdn.jsdelivr.net", "storage.googleapis.com"];
 

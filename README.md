@@ -52,6 +52,8 @@ The file [`evidence.json`](evidence.json) shows the official page and the exact 
 
 **NOTE:** The app does not check for glasses, hats or head coverings. The app tells you to remove them.
 
+**NOTE:** The rules for Ireland do not give a head size. They tell you to show your head and the top part of your body ("head to mid torso"). Thus, for Ireland, the app uses the head size and the space above the head in the example photos on the official page. These example photos show a smaller head than most countries.
+
 ## Confirmed accepted photos
 
 This table shows the countries where a passport office accepted a photo from this app. An accepted photo shows that the app can make a correct photo for that country. It does not guarantee that each photo will be accepted. Refer to the [Disclaimer](#disclaimer).
@@ -60,6 +62,7 @@ This table shows the countries where a passport office accepted a photo from thi
 |---|---|---|---|---|
 | Australia | Not yet confirmed | | | |
 | Hong Kong | Not yet confirmed | | | |
+| Ireland | Not yet confirmed | | | |
 | Italy | Not yet confirmed | | | |
 | Japan | Not yet confirmed | | | |
 | Netherlands | Not yet confirmed | | | |
